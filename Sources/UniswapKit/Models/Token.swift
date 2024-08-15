@@ -19,7 +19,7 @@ public enum Token {
     }
 
     func sortsBefore(token: Token) -> Bool {
-        address.raw.hs.hexString.lowercased() < token.address.raw.hs.hexString.lowercased()
+        address.raw.ww.hexString.lowercased() < token.address.raw.ww.hexString.lowercased()
     }
 
     public var isEther: Bool {

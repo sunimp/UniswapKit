@@ -3,15 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		6B0946E129F7EDF50007F19D /* TokenSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0946E029F7EDF50007F19D /* TokenSelectController.swift */; };
 		6B2B801429E5451300D3A0E3 /* SwapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B801329E5451300D3A0E3 /* SwapController.swift */; };
+		A47FAFD32C6DADDD00230DDD /* UIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = A47FAFD22C6DADDD00230DDD /* UIExtensions */; };
+		A47FAFD52C6DAE3B00230DDD /* UIApplication+KeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FAFD42C6DAE3B00230DDD /* UIApplication+KeyWindow.swift */; };
 		D3500A2328EC54AC0093A369 /* UniswapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D3500A2228EC54AC0093A369 /* UniswapKit */; };
-		D3604EC428F40AA00066C366 /* UIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = D3604EC328F40AA00066C366 /* UIExtensions */; };
 		D36AAAC923A237940065B32B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAAF23A237940065B32B /* Configuration.swift */; };
 		D36AAACA23A237940065B32B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36AAAB023A237940065B32B /* Assets.xcassets */; };
 		D36AAACB23A237940065B32B /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAB223A237940065B32B /* Manager.swift */; };
@@ -34,6 +35,7 @@
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B0946E029F7EDF50007F19D /* TokenSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSelectController.swift; sourceTree = "<group>"; };
 		6B2B801329E5451300D3A0E3 /* SwapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapController.swift; sourceTree = "<group>"; };
+		A47FAFD42C6DAE3B00230DDD /* UIApplication+KeyWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+KeyWindow.swift"; sourceTree = "<group>"; };
 		D36AAAAF23A237940065B32B /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D36AAAB023A237940065B32B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D36AAAB223A237940065B32B /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -54,9 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A47FAFD32C6DADDD00230DDD /* UIExtensions in Frameworks */,
 				D3500A2328EC54AC0093A369 /* UniswapKit in Frameworks */,
 				D36DFC2928EBDF5B00D2FC62 /* SnapKit in Frameworks */,
-				D3604EC428F40AA00066C366 /* UIExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,7 @@
 				D36AAAB023A237940065B32B /* Assets.xcassets */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				D36AAAAF23A237940065B32B /* Configuration.swift */,
+				A47FAFD42C6DAE3B00230DDD /* UIApplication+KeyWindow.swift */,
 				D36AAAC823A237940065B32B /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
@@ -170,7 +173,7 @@
 			packageProductDependencies = (
 				D36DFC2828EBDF5B00D2FC62 /* SnapKit */,
 				D3500A2228EC54AC0093A369 /* UniswapKit */,
-				D3604EC328F40AA00066C366 /* UIExtensions */,
+				A47FAFD22C6DADDD00230DDD /* UIExtensions */,
 			);
 			productName = EthereumKit;
 			productReference = 607FACD01AFB9204008FA782 /* UniswapKit Demo.app */;
@@ -182,8 +185,9 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -195,16 +199,16 @@
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "iOS Example" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
+				en,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
 				D36DFC2728EBDF5B00D2FC62 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				D3604EC228F40AA00066C366 /* XCRemoteSwiftPackageReference "UIExtensions" */,
+				A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -235,6 +239,7 @@
 				D36AAAC923A237940065B32B /* Configuration.swift in Sources */,
 				6B0946E129F7EDF50007F19D /* TokenSelectController.swift in Sources */,
 				D36AAACF23A237940065B32B /* EthereumAdapter.swift in Sources */,
+				A47FAFD52C6DAE3B00230DDD /* UIApplication+KeyWindow.swift in Sources */,
 				D36AAADB23A237940065B32B /* TransactionsController.swift in Sources */,
 				D36AAAD223A237940065B32B /* BalanceController.swift in Sources */,
 				D36AAACD23A237940065B32B /* TransactionRecord.swift in Sources */,
@@ -264,14 +269,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -283,6 +291,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -318,14 +327,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -337,6 +349,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -424,12 +437,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D3604EC228F40AA00066C366 /* XCRemoteSwiftPackageReference "UIExtensions" */ = {
+		A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/horizontalsystems/UIExtensions.Swift";
+			repositoryURL = "https://github.com/sunimp/UIExtensions.Swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.0.2;
 			};
 		};
 		D36DFC2728EBDF5B00D2FC62 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -443,14 +456,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A47FAFD22C6DADDD00230DDD /* UIExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */;
+			productName = UIExtensions;
+		};
 		D3500A2228EC54AC0093A369 /* UniswapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UniswapKit;
-		};
-		D3604EC328F40AA00066C366 /* UIExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3604EC228F40AA00066C366 /* XCRemoteSwiftPackageReference "UIExtensions" */;
-			productName = UIExtensions;
 		};
 		D36DFC2828EBDF5B00D2FC62 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

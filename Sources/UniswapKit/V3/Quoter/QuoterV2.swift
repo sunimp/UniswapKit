@@ -2,7 +2,7 @@ import Alamofire
 import BigInt
 import EvmKit
 import Foundation
-import HsToolKit
+import WWToolKit
 
 public class QuoterV2 {
     private let networkManager: NetworkManager

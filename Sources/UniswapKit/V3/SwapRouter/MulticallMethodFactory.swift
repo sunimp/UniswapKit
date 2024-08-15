@@ -21,7 +21,7 @@ class MulticallMethodFactory: IContractMethodFactory {
         }
 
         let methods: [ContractMethod] = methodArray.compactMap { argument -> ContractMethod? in
-            guard let data = argument.hs.hex.hs.hexData else {
+            guard let data = argument.ww.hex.ww.hexData else {
                 return nil
             }
             return factories.createMethod(input: data)

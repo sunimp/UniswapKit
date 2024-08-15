@@ -1,8 +1,8 @@
 import BigInt
 import EvmKit
 import Foundation
-import HsCryptoKit
-import HsExtensions
+import WWCryptoKit
+import WWExtensions
 
 public struct Pair {
     let reserve0: TokenAmount
@@ -87,10 +87,10 @@ public struct Pair {
 
 extension Pair {
     static func address(token0: Token, token1: Token, factoryAddressString: String, initCodeHashString: String) -> Address {
-        let data = "ff".hs.hexData! +
-            factoryAddressString.hs.hexData! +
+        let data = "ff".ww.hexData! +
+            factoryAddressString.ww.hexData! +
             Crypto.sha3(token0.address.raw + token1.address.raw) +
-            initCodeHashString.hs.hexData!
+            initCodeHashString.ww.hexData!
 
         return Address(raw: Crypto.sha3(data).suffix(20))
     }

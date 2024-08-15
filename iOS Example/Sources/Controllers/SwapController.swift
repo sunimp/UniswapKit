@@ -245,15 +245,16 @@ class SwapController: UIViewController {
 
         swapDataTask?.cancel()
         swapDataTask = Task { [weak self] in
+            guard let self else { return }
             do {
                 let exactAmount: BigUInt
                 let bestTrade: TradeDataV3
-                switch tradeType {
+                switch self.tradeType {
                 case .exactIn:
                     guard let amountString = fromTextField.text, let amount = Decimal(string: amountString),
-                          let amountBigUInt = BigUInt(amount.hs.roundedString(decimal: fromToken.decimals))
+                          let amountBigUInt = BigUInt(amount.ww.roundedString(decimal: fromToken.decimals))
                     else {
-                        self?.show(error: "Invalid amount from")
+                        self.show(error: "Invalid amount from")
                         return
                     }
 
@@ -268,7 +269,7 @@ class SwapController: UIViewController {
                     )
                 case .exactOut:
                     guard let amountString = toTextField.text, let amount = Decimal(string: amountString),
-                          let amountBigUInt = BigUInt(amount.hs.roundedString(decimal: toToken.decimals))
+                          let amountBigUInt = BigUInt(amount.ww.roundedString(decimal: toToken.decimals))
                     else {
                         show(error: "Invalid amount to")
                         return
@@ -286,10 +287,10 @@ class SwapController: UIViewController {
                 }
 
                 let tradeType = tradeType
-                self?.syncEstimated(tradeType: tradeType, exact: exactAmount, bestTrade: bestTrade)
+                self.syncEstimated(tradeType: tradeType, exact: exactAmount, bestTrade: bestTrade)
             } catch {
-                self?.state = .idle
-                self?.show(error: error.localizedDescription)
+                self.state = .idle
+                self.show(error: error.localizedDescription)
             }
         }
     }
@@ -314,7 +315,7 @@ class SwapController: UIViewController {
 
     @objc private func approve() {
         guard let amountString = fromTextField.text, let amount = Decimal(string: amountString),
-              let amountIn = BigUInt(amount.hs.roundedString(decimal: fromToken.decimals))
+              let amountIn = BigUInt(amount.ww.roundedString(decimal: fromToken.decimals))
         else {
             show(error: "Invalid amount from")
             return
@@ -370,9 +371,9 @@ class SwapController: UIViewController {
                 tradeOptions: tradeOptions
             )
 
-            print("tx input: ", transactionData.input.hs.hexString)
+            print("tx input: ", transactionData.input.ww.hexString)
             let gasPrice = gasPrice
-            Task { [weak self] in
+            Task {
                 do {
                     let gasLimit = try await Manager.shared.evmKit.fetchEstimateGas(transactionData: transactionData, gasPrice: gasPrice)
                     print("GasLimit = \(gasLimit)")
@@ -381,9 +382,9 @@ class SwapController: UIViewController {
                     let signature = try Manager.shared.signer.signature(rawTransaction: raw)
                     let _ = try await Manager.shared.evmKit.send(rawTransaction: raw, signature: signature)
 
-                    self?.showSuccess(message: "Send successful! \(bestTrade.amountIn?.description) \(bestTrade.amountOut?.description)")
+                    self.showSuccess(message: "Send successful! \(bestTrade.amountIn?.description ?? "") \(bestTrade.amountOut?.description ?? "")")
                 } catch {
-                    self?.show(error: error.localizedDescription)
+                    self.show(error: error.localizedDescription)
                 }
             }
         } catch {

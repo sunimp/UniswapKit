@@ -1,8 +1,8 @@
 import BigInt
 import EvmKit
 import Foundation
-import HsCryptoKit
-import HsToolKit
+import WWCryptoKit
+import WWToolKit
 
 class TradeManager {
     private let networkManager: NetworkManager

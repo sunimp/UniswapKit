@@ -1,7 +1,7 @@
 import BigInt
 import EvmKit
 import Foundation
-import HsToolKit
+import WWToolKit
 
 public class KitV3 {
     private let dexType: DexType
@@ -31,7 +31,7 @@ public extension KitV3 {
     }
 
     func bestTradeExactIn(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token, amountIn: Decimal, options: TradeOptions) async throws -> TradeDataV3 {
-        guard let amountIn = BigUInt(amountIn.hs.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
+        guard let amountIn = BigUInt(amountIn.ww.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
             throw TradeError.zeroAmount
         }
 
@@ -40,7 +40,7 @@ public extension KitV3 {
     }
 
     func bestTradeExactOut(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token, amountOut: Decimal, options: TradeOptions) async throws -> TradeDataV3 {
-        guard let amountOut = BigUInt(amountOut.hs.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
+        guard let amountOut = BigUInt(amountOut.ww.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
             throw TradeError.zeroAmount
         }
 

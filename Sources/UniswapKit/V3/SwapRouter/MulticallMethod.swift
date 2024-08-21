@@ -1,5 +1,13 @@
-import EvmKit
+//
+//  MulticallMethod.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import EvmKit
 
 class MulticallMethod: ContractMethod {
     static let methodSignature = "multicall(bytes[])"

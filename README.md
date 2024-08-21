@@ -1,6 +1,6 @@
 # UniswapKit.Swift
 
-`UniswapKit.Swift` extends `EvmKit.Swift` to support `Uniswap` DEX and some other DEXes using the same smart contract codebase. Currently, `UnstoppableWallet` uses this kit for integration of `Uniswap`(Ethereum), `PancakeSwap`(BSC), `QuickSwap`(Polygon) and `Trader Joe`(Avalanche)
+`UniswapKit.Swift` extends `EvmKit.Swift` to support `Uniswap` DEX and some other DEXes using the same smart contract codebase. Currently, Uses this kit for integration of `Uniswap`(Ethereum), `PancakeSwap`(BSC), `QuickSwap`(Polygon) and `Trader Joe`(Avalanche)
 
 ## Features
 
@@ -100,11 +100,11 @@ With `UniswapKit` you can build swap transaction that either has an exact `In` o
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/horizontalsystems/UniswapKit.Swift.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/sunimp/UniswapKit.Swift.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
 ## License
 
-The `UniswapKit.Swift` toolkit is open source and available under the terms of the [MIT License](https://github.com/horizontalsystems/ethereum-kit-ios/blob/master/LICENSE).
+The `UniswapKit.Swift` toolkit is open source and available under the terms of the [MIT License](https://github.com/sunimp/UniswapKit.Swift/blob/master/LICENSE).
 

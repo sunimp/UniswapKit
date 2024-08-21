@@ -1,5 +1,13 @@
-import EvmKit
+//
+//  TradeOptions.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import EvmKit
 
 public struct TradeOptions {
     public static let defaultSlippage: Decimal = 0.5

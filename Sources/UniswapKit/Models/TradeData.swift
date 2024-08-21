@@ -1,5 +1,13 @@
-import BigInt
+//
+//  TradeData.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import BigInt
 
 public class TradeData {
     let trade: Trade
@@ -21,44 +29,45 @@ public class TradeData {
     }
 }
 
-public extension TradeData {
-    var type: TradeType {
+extension TradeData {
+    
+    public var type: TradeType {
         trade.type
     }
 
-    var amountIn: Decimal? {
+    public var amountIn: Decimal? {
         trade.tokenAmountIn.decimalAmount
     }
 
-    var amountOut: Decimal? {
+    public var amountOut: Decimal? {
         trade.tokenAmountOut.decimalAmount
     }
 
-    var amountInMax: Decimal? {
+    public var amountInMax: Decimal? {
         tokenAmountInMax.decimalAmount
     }
 
-    var amountOutMin: Decimal? {
+    public var amountOutMin: Decimal? {
         tokenAmountOutMin.decimalAmount
     }
 
-    var executionPrice: Decimal? {
+    public var executionPrice: Decimal? {
         trade.executionPrice.decimalValue
     }
 
-    var executionPriceInverted: Decimal? {
+    public var executionPriceInverted: Decimal? {
         trade.executionPrice.invertedPrice.decimalValue
     }
 
-    var midPrice: Decimal? {
+    public var midPrice: Decimal? {
         trade.route.midPrice.decimalValue
     }
 
-    var priceImpact: Decimal? {
+    public var priceImpact: Decimal? {
         trade.priceImpact.toDecimal(decimals: 2)
     }
 
-    var providerFee: Decimal? {
+    public var providerFee: Decimal? {
         guard let amountIn = type == .exactIn ? trade.tokenAmountIn.decimalAmount : tokenAmountInMax.decimalAmount else {
             return nil
         }
@@ -66,7 +75,7 @@ public extension TradeData {
         return trade.liquidityProviderFee.toDecimal(decimals: trade.tokenAmountIn.token.decimals).map { $0 * amountIn }
     }
 
-    var path: [Token] {
+    public var path: [Token] {
         trade.route.path
     }
 }

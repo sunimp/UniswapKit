@@ -1,6 +1,14 @@
+//
+//  ExactOutputMethod.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import EvmKit
-import Foundation
 
 class ExactOutputMethod: ContractMethod {
     static let methodSignature = "exactOutput((bytes,address,uint256,uint256))"

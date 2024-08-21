@@ -1,6 +1,14 @@
+//
+//  QuoteExactInputMethod.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import EvmKit
-import Foundation
 
 class QuoteExactInputMethod: ContractMethod {
     static let methodSignature = "quoteExactInput(bytes,uint256)"

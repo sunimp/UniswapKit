@@ -1,5 +1,13 @@
-import BigInt
+//
+//  Price.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import BigInt
 
 struct Price {
     private let baseToken: Token

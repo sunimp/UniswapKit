@@ -1,10 +1,14 @@
-import BigInt
-import EvmKit
+//
+//  ExactOutputSingleMethodV1Factory.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
 
 import BigInt
 import EvmKit
-import Foundation
 
 class ExactOutputSingleMethodV1Factory: IContractMethodFactory {
     let methodId: Data = ContractMethodHelper.methodId(signature: ExactOutputSingleMethodV1.methodSignature)

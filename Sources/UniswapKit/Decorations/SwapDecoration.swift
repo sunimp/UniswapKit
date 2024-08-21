@@ -1,3 +1,12 @@
+//
+//  SwapDecoration.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import Eip20Kit
 import EvmKit
@@ -47,13 +56,14 @@ public class SwapDecoration: TransactionDecoration {
     }
 }
 
-public extension SwapDecoration {
-    enum Amount {
+extension SwapDecoration {
+    
+    public enum Amount {
         case exact(value: BigUInt)
         case extremum(value: BigUInt)
     }
 
-    enum Token {
+    public enum Token {
         case evmCoin
         case eip20Coin(address: Address, tokenInfo: TokenInfo?)
 

@@ -1,5 +1,13 @@
-import BigInt
+//
+//  Slot0.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import BigInt
 
 struct Slot0 {
     // the current price

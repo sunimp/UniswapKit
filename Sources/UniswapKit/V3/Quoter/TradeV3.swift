@@ -1,5 +1,13 @@
-import BigInt
+//
+//  TradeV3.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
 import Foundation
+
+import BigInt
 
 public class TradeV3 {
     public let type: TradeType
@@ -22,8 +30,8 @@ public class TradeV3 {
     }
 }
 
-public extension TradeV3 {
-    var priceImpact: Decimal? {
+extension TradeV3 {
+    public var priceImpact: Decimal? {
         let decimals = tokenAmountIn.token.decimals - tokenAmountOut.token.decimals
         let tradePrice = PriceImpactHelper.price(in: tokenAmountIn.rawAmount, out: tokenAmountOut.rawAmount, shift: decimals)
 

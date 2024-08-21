@@ -1,6 +1,14 @@
+//
+//  Kit.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import EvmKit
-import Foundation
 import WWToolKit
 
 public class Kit {
@@ -15,20 +23,21 @@ public class Kit {
     }
 }
 
-public extension Kit {
-    func routerAddress(chain: Chain) throws -> Address {
+extension Kit {
+    
+    public func routerAddress(chain: Chain) throws -> Address {
         try TradeManager.routerAddress(chain: chain)
     }
 
-    func etherToken(chain: Chain) throws -> Token {
+    public func etherToken(chain: Chain) throws -> Token {
         try tokenFactory.etherToken(chain: chain)
     }
 
-    func token(contractAddress: Address, decimals: Int) -> Token {
+    public func token(contractAddress: Address, decimals: Int) -> Token {
         tokenFactory.token(contractAddress: contractAddress, decimals: decimals)
     }
 
-    func swapData(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token) async throws -> SwapData {
+    public func swapData(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token) async throws -> SwapData {
         let tokenPairs = try pairSelector.tokenPairs(chain: chain, tokenA: tokenIn, tokenB: tokenOut)
 
         let pairs = try await withThrowingTaskGroup(of: Pair.self) { taskGroup in
@@ -46,7 +55,7 @@ public extension Kit {
         return SwapData(pairs: pairs, tokenIn: tokenIn, tokenOut: tokenOut)
     }
 
-    func bestTradeExactIn(swapData: SwapData, amountIn: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
+    public func bestTradeExactIn(swapData: SwapData, amountIn: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
         guard amountIn > 0 else {
             throw TradeError.zeroAmount
         }
@@ -66,7 +75,7 @@ public extension Kit {
         return TradeData(trade: bestTrade, options: options)
     }
 
-    func bestTradeExactOut(swapData: SwapData, amountOut: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
+    public func bestTradeExactOut(swapData: SwapData, amountOut: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
         guard amountOut > 0 else {
             throw TradeError.zeroAmount
         }
@@ -78,9 +87,7 @@ public extension Kit {
             tokenIn: swapData.tokenIn,
             tokenAmountOut: tokenAmountOut
         ).sorted()
-
-//        print("Trades: \(sortedTrades)")
-
+        
         guard let bestTrade = sortedTrades.first else {
             throw TradeError.tradeNotFound
         }
@@ -88,13 +95,13 @@ public extension Kit {
         return TradeData(trade: bestTrade, options: options)
     }
 
-    func transactionData(receiveAddress: Address, chain: Chain, tradeData: TradeData) throws -> TransactionData {
+    public func transactionData(receiveAddress: Address, chain: Chain, tradeData: TradeData) throws -> TransactionData {
         try tradeManager.transactionData(receiveAddress: receiveAddress, chain: chain, tradeData: tradeData)
     }
 }
 
-public extension Kit {
-    static func instance() throws -> Kit {
+extension Kit {
+    public static func instance() throws -> Kit {
         let networkManager = NetworkManager()
         let tradeManager = TradeManager(networkManager: networkManager)
         let tokenFactory = TokenFactory()
@@ -105,31 +112,32 @@ public extension Kit {
         return uniswapKit
     }
 
-    static func addDecorators(to evmKit: EvmKit.Kit) {
+    public static func addDecorators(to evmKit: EvmKit.Kit) {
         evmKit.add(methodDecorator: SwapMethodDecorator(contractMethodFactories: SwapContractMethodFactories.shared))
         evmKit.add(transactionDecorator: SwapTransactionDecorator())
     }
 }
 
-public extension Kit {
-    enum FractionError: Error {
+extension Kit {
+    
+    public enum FractionError: Error {
         case negativeDecimal
         case invalidSignificand(value: String)
     }
 
-    enum TradeError: Error {
+    public enum TradeError: Error {
         case zeroAmount
         case tradeNotFound
         case invalidTokensForSwap
     }
 
-    enum PairError: Error {
+    public enum PairError: Error {
         case notInvolvedToken
         case insufficientReserves
         case insufficientReserveOut
     }
 
-    enum RouteError: Error {
+    public enum RouteError: Error {
         case emptyPairs
         case invalidPair(index: Int)
     }

@@ -1,6 +1,14 @@
+//
+//  SwapExactETHForTokensMethodFactory.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import EvmKit
-import Foundation
 
 class SwapExactETHForTokensMethodFactory: IContractMethodFactory {
     let methodId: Data = ContractMethodHelper.methodId(signature: SwapExactETHForTokensMethod.methodSignature(supportingFeeOnTransfer: false))

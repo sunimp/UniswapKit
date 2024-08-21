@@ -1,3 +1,12 @@
+//
+//  SwapV3TransactionDecorator.swift
+//  UniswapKit
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import Foundation
+
 import BigInt
 import Eip20Kit
 import EvmKit

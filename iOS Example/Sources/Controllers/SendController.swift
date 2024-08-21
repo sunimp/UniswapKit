@@ -1,7 +1,15 @@
+//
+//  SendController.swift
+//  UniswapKit-Example
+//
+//  Created by Sun on 2024/8/21.
+//
+
+import UIKit
 import Combine
+
 import EvmKit
 import SnapKit
-import UIKit
 
 class SendController: UIViewController {
     private let adapter: EthereumAdapter = Manager.shared.adapter

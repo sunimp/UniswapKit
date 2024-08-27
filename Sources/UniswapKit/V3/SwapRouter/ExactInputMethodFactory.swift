@@ -11,7 +11,7 @@ import BigInt
 import EvmKit
 
 class ExactInputMethodFactory: IContractMethodFactory {
-    let methodID: Data = ContractMethodHelper.methodID(signature: ExactInputMethod.methodSignature)
+    let methodId: Data = ContractMethodHelper.methodId(signature: ExactInputMethod.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(inputArguments: inputArguments, argumentTypes: [

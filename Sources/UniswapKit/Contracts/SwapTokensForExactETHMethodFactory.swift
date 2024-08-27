@@ -11,7 +11,7 @@ import BigInt
 import EvmKit
 
 class SwapTokensForExactETHMethodFactory: IContractMethodFactory {
-    let methodID: Data = ContractMethodHelper.methodID(signature: SwapTokensForExactETHMethod.methodSignature)
+    let methodId: Data = ContractMethodHelper.methodId(signature: SwapTokensForExactETHMethod.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(

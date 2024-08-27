@@ -28,8 +28,8 @@ class Configuration {
         case .arbitrumOne: return RpcSource.arbitrumOneRpcHttp()
         case .optimism: return RpcSource.optimismRpcHttp()
         case .binanceSmartChain: return RpcSource.binanceSmartChainHttp()
-        case .ethereumGoerli: return RpcSource.goerliInfuraHttp(projectID: Configuration.infuraProjectId)
-        default: return .ethereumInfuraWebsocket(projectID: Configuration.infuraProjectId, projectSecret: Configuration.infuraSecret)
+        case .ethereumGoerli: return RpcSource.goerliInfuraHttp(projectId: Configuration.infuraProjectId)
+        default: return .ethereumInfuraWebsocket(projectId: Configuration.infuraProjectId, projectSecret: Configuration.infuraSecret)
         }
     }
 

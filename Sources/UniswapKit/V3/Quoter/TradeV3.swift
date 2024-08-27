@@ -45,7 +45,7 @@ extension TradeV3 {
         let decimals = tokenAmountIn.token.decimals - tokenAmountOut.token.decimals
         let tradePrice = PriceImpactHelper.price(in: tokenAmountIn.rawAmount, out: tokenAmountOut.rawAmount, shift: decimals)
 
-        var slotPrice: Decimal? = nil
+        var slotPrice: Decimal?
         if !slotPrices.isEmpty {
             var result: Decimal = 1
             for decimal in slotPrices {

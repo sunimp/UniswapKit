@@ -15,7 +15,7 @@ public struct TradeOptions {
 
     public var allowedSlippage: Decimal
     public var ttl: TimeInterval
-    public var recipient: Address? = nil
+    public var recipient: Address?
     public var feeOnTransfer: Bool
 
     public init(

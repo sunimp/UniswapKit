@@ -112,7 +112,7 @@ public class QuoterV2 {
         amount: BigUInt
     ) async throws -> (fee: KitV3.FeeAmount, response: QuoteExactSingleResponse) {
         // check all fees and found the best amount for trade.
-        var bestTrade: (fee: KitV3.FeeAmount, response: QuoteExactSingleResponse)? = nil
+        var bestTrade: (fee: KitV3.FeeAmount, response: QuoteExactSingleResponse)?
         for fee in fees {
             do {
                 let response = try await quoteExact(

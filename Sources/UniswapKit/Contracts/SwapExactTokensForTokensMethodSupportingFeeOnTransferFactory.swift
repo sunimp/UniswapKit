@@ -11,8 +11,8 @@ import BigInt
 import EvmKit
 
 class SwapExactTokensForTokensMethodSupportingFeeOnTransferFactory: IContractMethodFactory {
-    let methodID: Data = ContractMethodHelper
-        .methodID(signature: SwapExactTokensForTokensMethod.methodSignature(supportingFeeOnTransfer: true))
+    let methodId: Data = ContractMethodHelper
+        .methodId(signature: SwapExactTokensForTokensMethod.methodSignature(supportingFeeOnTransfer: true))
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(

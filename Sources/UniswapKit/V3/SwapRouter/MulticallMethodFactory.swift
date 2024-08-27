@@ -13,7 +13,7 @@ import EvmKit
 // MARK: - MulticallMethodFactory
 
 class MulticallMethodFactory: IContractMethodFactory {
-    let methodID: Data = ContractMethodHelper.methodID(signature: MulticallMethod.methodSignature)
+    let methodId: Data = ContractMethodHelper.methodId(signature: MulticallMethod.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let factories = SwapV3ContractMethodFactories()

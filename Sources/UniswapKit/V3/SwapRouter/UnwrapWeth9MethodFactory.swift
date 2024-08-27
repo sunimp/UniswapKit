@@ -11,7 +11,7 @@ import BigInt
 import EvmKit
 
 class UnwrapWeth9MethodFactory: IContractMethodFactory {
-    let methodID: Data = ContractMethodHelper.methodID(signature: UnwrapWeth9Method.methodSignature)
+    let methodId: Data = ContractMethodHelper.methodId(signature: UnwrapWeth9Method.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(inputArguments: inputArguments, argumentTypes: [

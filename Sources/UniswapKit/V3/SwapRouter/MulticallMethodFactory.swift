@@ -10,8 +10,10 @@ import Foundation
 import BigInt
 import EvmKit
 
+// MARK: - MulticallMethodFactory
+
 class MulticallMethodFactory: IContractMethodFactory {
-    let methodId: Data = ContractMethodHelper.methodId(signature: MulticallMethod.methodSignature)
+    let methodID: Data = ContractMethodHelper.methodID(signature: MulticallMethod.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let factories = SwapV3ContractMethodFactories()
@@ -20,7 +22,7 @@ class MulticallMethodFactory: IContractMethodFactory {
             ContractMethodHelper.MulticallParameters.self,
         ])
 
-        guard parsedArguments.count > 0, let methodArray = parsedArguments[0] as? [Data] else {
+        guard !parsedArguments.isEmpty, let methodArray = parsedArguments[0] as? [Data] else {
             throw ParseError.cantParseMethods
         }
 
@@ -38,6 +40,8 @@ class MulticallMethodFactory: IContractMethodFactory {
         return MulticallMethod(methods: methods)
     }
 }
+
+// MARK: MulticallMethodFactory.ParseError
 
 extension MulticallMethodFactory {
     enum ParseError: Error {

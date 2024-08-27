@@ -15,10 +15,15 @@ public struct TradeOptions {
 
     public var allowedSlippage: Decimal
     public var ttl: TimeInterval
-    public var recipient: Address?
+    public var recipient: Address? = nil
     public var feeOnTransfer: Bool
 
-    public init(allowedSlippage: Decimal = TradeOptions.defaultSlippage, ttl: TimeInterval = TradeOptions.defaultTtl, recipient: Address? = nil, feeOnTransfer: Bool = false) {
+    public init(
+        allowedSlippage: Decimal = TradeOptions.defaultSlippage,
+        ttl: TimeInterval = TradeOptions.defaultTtl,
+        recipient: Address? = nil,
+        feeOnTransfer: Bool = false
+    ) {
         self.allowedSlippage = allowedSlippage
         self.ttl = ttl
         self.recipient = recipient

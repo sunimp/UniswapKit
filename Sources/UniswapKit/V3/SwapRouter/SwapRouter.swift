@@ -10,6 +10,8 @@ import Foundation
 import BigInt
 import EvmKit
 
+// MARK: - SwapRouter
+
 class SwapRouter {
     private let dexType: DexType
 
@@ -34,6 +36,7 @@ class SwapRouter {
                     amountOutMinimum: tradeData.tokenAmountOutMin.rawAmount,
                     sqrtPriceLimitX96: 0
                 )
+
             case .exactOut:
                 return ExactOutputSingleMethod(
                     tokenIn: trade.tokenAmountIn.token.address,
@@ -55,6 +58,7 @@ class SwapRouter {
                 amountIn: trade.tokenAmountIn.rawAmount,
                 amountOutMinimum: tradeData.tokenAmountOutMin.rawAmount
             )
+
         case .exactOut:
             return ExactOutputMethod(
                 path: trade.swapPath.abiEncodePacked,
@@ -77,7 +81,9 @@ extension SwapRouter {
 //        let deadline = BigUInt(Date().timeIntervalSince1970 + tradeOptions.ttl)
 
         // if you try to swap erc20 -> ETH, recipient will be zeros.
-        let swapRecipient = tradeData.trade.tokenAmountOut.token.isEther ? (try! Address(hex: "0x0000000000000000000000000000000000000002")) : recipient
+        let swapRecipient = tradeData.trade.tokenAmountOut.token.isEther
+            ? (try! Address(hex: "0x0000000000000000000000000000000000000002"))
+            : recipient
         let ethValue = tradeData.trade.tokenAmountIn.token.isEther ? tradeData.trade.tokenAmountIn.rawAmount : 0
 
         let swapMethod = buildMethodForExact(

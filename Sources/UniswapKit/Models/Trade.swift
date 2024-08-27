@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - Trade
+
 struct Trade {
     let type: TradeType
     let route: Route
@@ -26,12 +28,19 @@ struct Trade {
 
         executionPrice = Price(baseTokenAmount: tokenAmountIn, quoteTokenAmount: tokenAmountOut)
 
-        priceImpact = Trade.computePriceImpact(midPrice: route.midPrice, tokenAmountIn: tokenAmountIn, tokenAmountOut: tokenAmountOut)
+        priceImpact = Trade.computePriceImpact(
+            midPrice: route.midPrice,
+            tokenAmountIn: tokenAmountIn,
+            tokenAmountOut: tokenAmountOut
+        )
         liquidityProviderFee = Trade.computeLiquidityProviderFee(pairCount: route.pairs.count)
     }
 
     private static func computePriceImpact(midPrice: Price, tokenAmountIn: TokenAmount, tokenAmountOut: TokenAmount) -> Fraction {
-        let exactQuote = midPrice.fraction * Fraction(numerator: tokenAmountIn.rawAmount) * Fraction(numerator: 997, denominator: 1000)
+        let exactQuote = midPrice.fraction * Fraction(numerator: tokenAmountIn.rawAmount) * Fraction(
+            numerator: 997,
+            denominator: 1000
+        )
         return (exactQuote - Fraction(numerator: tokenAmountOut.rawAmount)) / exactQuote * Fraction(numerator: 100)
     }
 
@@ -39,6 +48,8 @@ struct Trade {
         Fraction(numerator: 1) - Fraction(numerator: BigUInt(997).power(pairCount), denominator: BigUInt(1000).power(pairCount))
     }
 }
+
+// MARK: Comparable
 
 extension Trade: Comparable {
     public static func < (lhs: Trade, rhs: Trade) -> Bool {
@@ -64,6 +75,8 @@ extension Trade: Comparable {
             lhs.route.path.count == rhs.route.path.count
     }
 }
+
+// MARK: CustomStringConvertible
 
 extension Trade: CustomStringConvertible {
     public var description: String {

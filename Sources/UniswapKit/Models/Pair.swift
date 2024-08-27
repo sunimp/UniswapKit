@@ -12,6 +12,8 @@ import EvmKit
 import WWCryptoKit
 import WWExtensions
 
+// MARK: - Pair
+
 public struct Pair {
     let reserve0: TokenAmount
     let reserve1: TokenAmount
@@ -103,6 +105,8 @@ extension Pair {
         return Address(raw: Crypto.sha3(data).suffix(20))
     }
 }
+
+// MARK: CustomStringConvertible
 
 extension Pair: CustomStringConvertible {
     public var description: String {

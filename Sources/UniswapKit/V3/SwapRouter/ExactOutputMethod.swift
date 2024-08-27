@@ -10,6 +10,8 @@ import Foundation
 import BigInt
 import EvmKit
 
+// MARK: - ExactOutputMethod
+
 class ExactOutputMethod: ContractMethod {
     static let methodSignature = "exactOutput((bytes,address,uint256,uint256))"
 

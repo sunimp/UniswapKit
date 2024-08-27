@@ -21,7 +21,15 @@ class ExactInputSingleMethod: ContractMethod {
     let amountOutMinimum: BigUInt
     let sqrtPriceLimitX96: BigUInt
 
-    init(tokenIn: Address, tokenOut: Address, fee: BigUInt, recipient: Address, amountIn: BigUInt, amountOutMinimum: BigUInt, sqrtPriceLimitX96: BigUInt) {
+    init(
+        tokenIn: Address,
+        tokenOut: Address,
+        fee: BigUInt,
+        recipient: Address,
+        amountIn: BigUInt,
+        amountOutMinimum: BigUInt,
+        sqrtPriceLimitX96: BigUInt
+    ) {
         self.tokenIn = tokenIn
         self.tokenOut = tokenOut
         self.fee = fee

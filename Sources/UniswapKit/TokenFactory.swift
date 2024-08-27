@@ -9,6 +9,8 @@ import Foundation
 
 import EvmKit
 
+// MARK: - TokenFactory
+
 class TokenFactory {
     func etherToken(chain: Chain) throws -> Token {
         try .eth(wethAddress: Self.wethAddress(chain: chain))

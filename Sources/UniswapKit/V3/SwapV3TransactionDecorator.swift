@@ -11,6 +11,8 @@ import BigInt
 import Eip20Kit
 import EvmKit
 
+// MARK: - SwapV3TransactionDecorator
+
 class SwapV3TransactionDecorator {
     private let wethAddress: Address
 
@@ -18,12 +20,20 @@ class SwapV3TransactionDecorator {
         self.wethAddress = wethAddress
     }
 
-    private func totalTokenAmount(userAddress: Address, tokenAddress: Address, eventInstances: [ContractEventInstance], collectIncomingAmounts: Bool) -> BigUInt {
+    private func totalTokenAmount(
+        userAddress: Address,
+        tokenAddress: Address,
+        eventInstances: [ContractEventInstance],
+        collectIncomingAmounts: Bool
+    ) -> BigUInt {
         var amountIn: BigUInt = 0
         var amountOut: BigUInt = 0
 
         for eventInstance in eventInstances {
-            if eventInstance.contractAddress == tokenAddress, let transferEventInstance = eventInstance as? TransferEventInstance {
+            if
+                eventInstance.contractAddress == tokenAddress,
+                let transferEventInstance = eventInstance as? TransferEventInstance
+            {
                 if transferEventInstance.from == userAddress {
                     amountIn += transferEventInstance.value
                 }
@@ -39,7 +49,7 @@ class SwapV3TransactionDecorator {
 
     private func totalETHIncoming(userAddress: Address, transactions: [InternalTransaction]) -> BigUInt {
         var amountOut: BigUInt = 0
-        transactions.forEach { transaction in
+        for transaction in transactions {
             if transaction.to == userAddress {
                 amountOut += transaction.value
             }
@@ -51,13 +61,23 @@ class SwapV3TransactionDecorator {
     private func eip20Token(address: Address, eventInstances: [ContractEventInstance]) -> SwapDecoration.Token {
         .eip20Coin(
             address: address,
-            tokenInfo: eventInstances.compactMap { $0 as? TransferEventInstance }.first { $0.contractAddress == address }?.tokenInfo
+            tokenInfo: eventInstances.compactMap { $0 as? TransferEventInstance }.first { $0.contractAddress == address }?
+                .tokenInfo
         )
     }
 }
 
+// MARK: ITransactionDecorator
+
 extension SwapV3TransactionDecorator: ITransactionDecorator {
-    public func decoration(from: Address?, to: Address?, value: BigUInt?, contractMethod: ContractMethod?, internalTransactions: [InternalTransaction], eventInstances: [ContractEventInstance]) -> TransactionDecoration? {
+    public func decoration(
+        from: Address?,
+        to: Address?,
+        value: BigUInt?,
+        contractMethod: ContractMethod?,
+        internalTransactions: [InternalTransaction],
+        eventInstances: [ContractEventInstance]
+    ) -> TransactionDecoration? {
         guard let from, let to, let value, let contractMethod else {
             return nil
         }
@@ -94,14 +114,23 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
         )
     }
 
-    private func decoration(from: Address, to: Address, value: BigUInt, contractMethod: ContractMethod, internalTransactions: [InternalTransaction], eventInstances: [ContractEventInstance], tokenOutIsEther: Bool, recipientOverride: Address?) -> TransactionDecoration? {
+    private func decoration(
+        from: Address,
+        to: Address,
+        value: BigUInt,
+        contractMethod: ContractMethod,
+        internalTransactions: [InternalTransaction],
+        eventInstances: [ContractEventInstance],
+        tokenOutIsEther: Bool,
+        recipientOverride: Address?
+    ) -> TransactionDecoration? {
         let swapType = { (tokenIn: Address) in
             if tokenOutIsEther {
-                return SwapType.tokenToEth
+                SwapType.tokenToEth
             } else if value > 0, tokenIn == self.wethAddress {
-                return SwapType.ethToToken
+                SwapType.ethToToken
             } else {
-                return SwapType.tokenToToken
+                SwapType.tokenToToken
             }
         }
 
@@ -120,6 +149,7 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipientOverride ?? method.recipient,
                 swapType: swapType(method.tokenIn)
             )
+
         case let method as ExactInputSingleMethodV1:
             return exactIn(
                 from: from,
@@ -135,6 +165,7 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 swapType: swapType(method.tokenIn),
                 deadline: method.deadline
             )
+
         case let method as ExactInputMethod:
             return exactIn(
                 from: from,
@@ -149,6 +180,7 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipientOverride ?? method.recipient,
                 swapType: swapType(method.tokenIn)
             )
+
         case let method as ExactOutputSingleMethod:
             return exactOut(
                 from: from,
@@ -163,6 +195,7 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipientOverride ?? method.recipient,
                 swapType: swapType(method.tokenIn)
             )
+
         case let method as ExactOutputSingleMethodV1:
             return exactOut(
                 from: from,
@@ -178,6 +211,7 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 swapType: swapType(method.tokenIn),
                 deadline: method.deadline
             )
+
         case let method as ExactOutputMethod:
             return exactOut(
                 from: from,
@@ -192,16 +226,31 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipientOverride ?? method.recipient,
                 swapType: swapType(method.tokenIn)
             )
+
         default: return nil
         }
     }
 
-    private func exactIn(from: Address, to: Address, value: BigUInt, internalTransactions: [InternalTransaction], eventInstances: [ContractEventInstance], tokenIn: Address, tokenOut: Address, amountIn: BigUInt, amountOutMinimum: BigUInt, recipient: Address, swapType: SwapType, deadline: BigUInt? = nil) -> SwapDecoration {
+    private func exactIn(
+        from: Address,
+        to: Address,
+        value: BigUInt,
+        internalTransactions: [InternalTransaction],
+        eventInstances: [ContractEventInstance],
+        tokenIn: Address,
+        tokenOut: Address,
+        amountIn: BigUInt,
+        amountOutMinimum: BigUInt,
+        recipient: Address,
+        swapType: SwapType,
+        deadline: BigUInt? = nil
+    ) -> SwapDecoration {
         switch swapType {
         case .ethToToken:
-            let amountOut = eventInstances.isEmpty ?
-                SwapDecoration.Amount.extremum(value: amountOutMinimum) :
-                SwapDecoration.Amount.exact(value:
+            let amountOut = eventInstances.isEmpty
+                ? SwapDecoration.Amount.extremum(value: amountOutMinimum)
+                : SwapDecoration.Amount.exact(
+                    value:
                     totalTokenAmount(
                         userAddress: recipient,
                         tokenAddress: tokenOut,
@@ -218,10 +267,12 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipient == from ? nil : recipient,
                 deadline: deadline
             )
+
         case .tokenToEth:
-            let amountOut = internalTransactions.isEmpty ?
-                SwapDecoration.Amount.extremum(value: amountOutMinimum) :
-                SwapDecoration.Amount.exact(value:
+            let amountOut = internalTransactions.isEmpty
+                ? SwapDecoration.Amount.extremum(value: amountOutMinimum)
+                : SwapDecoration.Amount.exact(
+                    value:
                     totalETHIncoming(
                         userAddress: recipient,
                         transactions: internalTransactions
@@ -236,10 +287,12 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipient == from ? nil : recipient,
                 deadline: deadline
             )
+
         case .tokenToToken:
-            let amountOut = eventInstances.isEmpty ?
-                SwapDecoration.Amount.extremum(value: amountOutMinimum) :
-                SwapDecoration.Amount.exact(value:
+            let amountOut = eventInstances.isEmpty
+                ? SwapDecoration.Amount.extremum(value: amountOutMinimum)
+                : SwapDecoration.Amount.exact(
+                    value:
                     totalTokenAmount(
                         userAddress: recipient,
                         tokenAddress: tokenOut,
@@ -259,12 +312,25 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
         }
     }
 
-    private func exactOut(from: Address, to: Address, value _: BigUInt, internalTransactions: [InternalTransaction], eventInstances: [ContractEventInstance], tokenIn: Address, tokenOut: Address, amountOut: BigUInt, amountInMaximum: BigUInt, recipient: Address, swapType: SwapType, deadline: BigUInt? = nil) -> SwapDecoration {
+    private func exactOut(
+        from: Address,
+        to: Address,
+        value _: BigUInt,
+        internalTransactions: [InternalTransaction],
+        eventInstances: [ContractEventInstance],
+        tokenIn: Address,
+        tokenOut: Address,
+        amountOut: BigUInt,
+        amountInMaximum: BigUInt,
+        recipient: Address,
+        swapType: SwapType,
+        deadline: BigUInt? = nil
+    ) -> SwapDecoration {
         switch swapType {
         case .ethToToken:
-            let amountIn = internalTransactions.isEmpty ?
-                SwapDecoration.Amount.extremum(value: amountInMaximum) :
-                SwapDecoration.Amount.exact(value: totalETHIncoming(userAddress: recipient, transactions: internalTransactions))
+            let amountIn = internalTransactions.isEmpty
+                ? SwapDecoration.Amount.extremum(value: amountInMaximum)
+                : SwapDecoration.Amount.exact(value: totalETHIncoming(userAddress: recipient, transactions: internalTransactions))
 
             return SwapDecoration(
                 contractAddress: to,
@@ -275,10 +341,12 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
                 recipient: recipient == from ? nil : recipient,
                 deadline: deadline
             )
+
         case .tokenToEth, .tokenToToken:
-            let amountIn = eventInstances.isEmpty ?
-                SwapDecoration.Amount.extremum(value: amountInMaximum) :
-                SwapDecoration.Amount.exact(value:
+            let amountIn = eventInstances.isEmpty
+                ? SwapDecoration.Amount.extremum(value: amountInMaximum)
+                : SwapDecoration.Amount.exact(
+                    value:
                     totalTokenAmount(
                         userAddress: recipient,
                         tokenAddress: tokenIn,
@@ -299,6 +367,8 @@ extension SwapV3TransactionDecorator: ITransactionDecorator {
         }
     }
 }
+
+// MARK: SwapV3TransactionDecorator.SwapType
 
 extension SwapV3TransactionDecorator {
     enum SwapType {

@@ -11,7 +11,7 @@ import BigInt
 import EvmKit
 
 class ExactOutputMethodFactory: IContractMethodFactory {
-    let methodId: Data = ContractMethodHelper.methodId(signature: ExactOutputMethod.methodSignature)
+    let methodID: Data = ContractMethodHelper.methodID(signature: ExactOutputMethod.methodSignature)
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(inputArguments: inputArguments, argumentTypes: [
@@ -21,10 +21,11 @@ class ExactOutputMethodFactory: IContractMethodFactory {
             BigUInt.self,
             BigUInt.self,
         ])
-        guard let path = parsedArguments[0] as? Data,
-              let recipient = parsedArguments[1] as? Address,
-              let amountOut = parsedArguments[2] as? BigUInt,
-              let amountInMaximum = parsedArguments[3] as? BigUInt
+        guard
+            let path = parsedArguments[0] as? Data,
+            let recipient = parsedArguments[1] as? Address,
+            let amountOut = parsedArguments[2] as? BigUInt,
+            let amountInMaximum = parsedArguments[3] as? BigUInt
         else {
             throw ContractMethodFactories.DecodeError.invalidABI
         }

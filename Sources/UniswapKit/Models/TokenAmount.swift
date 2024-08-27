@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - TokenAmount
+
 struct TokenAmount {
     let token: Token
     let fraction: Fraction
@@ -27,13 +29,12 @@ struct TokenAmount {
             throw Kit.FractionError.invalidSignificand(value: decimal.significand.description)
         }
 
-        let rawAmount: BigUInt
-
-        if decimal.exponent < -token.decimals {
-            rawAmount = significand / BigUInt(10).power(-decimal.exponent - token.decimals)
-        } else {
-            rawAmount = significand * BigUInt(10).power(token.decimals + decimal.exponent)
-        }
+        let rawAmount: BigUInt =
+            if decimal.exponent < -token.decimals {
+                significand / BigUInt(10).power(-decimal.exponent - token.decimals)
+            } else {
+                significand * BigUInt(10).power(token.decimals + decimal.exponent)
+            }
 
         self.init(token: token, rawAmount: rawAmount)
     }
@@ -47,6 +48,8 @@ struct TokenAmount {
     }
 }
 
+// MARK: Comparable
+
 extension TokenAmount: Comparable {
     public static func < (lhs: TokenAmount, rhs: TokenAmount) -> Bool {
         lhs.fraction < rhs.fraction
@@ -56,6 +59,8 @@ extension TokenAmount: Comparable {
         lhs.fraction == rhs.fraction
     }
 }
+
+// MARK: CustomStringConvertible
 
 extension TokenAmount: CustomStringConvertible {
     public var description: String {

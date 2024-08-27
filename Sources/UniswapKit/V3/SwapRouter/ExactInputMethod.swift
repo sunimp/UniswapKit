@@ -10,6 +10,8 @@ import Foundation
 import BigInt
 import EvmKit
 
+// MARK: - ExactInputMethod
+
 class ExactInputMethod: ContractMethod {
     static let methodSignature = "exactInput((bytes,address,uint256,uint256))"
 

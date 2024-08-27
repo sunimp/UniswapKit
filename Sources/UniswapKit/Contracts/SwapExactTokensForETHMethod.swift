@@ -24,7 +24,14 @@ class SwapExactTokensForETHMethod: ContractMethod {
 
     private let supportingFeeOnTransfer: Bool
 
-    init(amountIn: BigUInt, amountOutMin: BigUInt, path: [Address], to: Address, deadline: BigUInt, supportingFeeOnTransfer: Bool = false) {
+    init(
+        amountIn: BigUInt,
+        amountOutMin: BigUInt,
+        path: [Address],
+        to: Address,
+        deadline: BigUInt,
+        supportingFeeOnTransfer: Bool = false
+    ) {
         self.amountIn = amountIn
         self.amountOutMin = amountOutMin
         self.path = path

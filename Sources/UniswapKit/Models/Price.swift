@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - Price
+
 struct Price {
     private let baseToken: Token
     private let quoteToken: Token
@@ -53,6 +55,8 @@ extension Price {
         return Price(baseToken: lhs.baseToken, quoteToken: rhs.quoteToken, fraction: fraction)
     }
 }
+
+// MARK: CustomStringConvertible
 
 extension Price: CustomStringConvertible {
     public var description: String {

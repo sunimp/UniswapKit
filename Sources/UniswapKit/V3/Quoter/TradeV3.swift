@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - TradeV3
+
 public class TradeV3 {
     public let type: TradeType
 
@@ -18,7 +20,15 @@ public class TradeV3 {
     let tokenAmountIn: TokenAmount
     let tokenAmountOut: TokenAmount
 
-    public init(tradeType: TradeType, swapPath: SwapPath, amountIn: BigUInt, amountOut: BigUInt, tokenIn: Token, tokenOut: Token, slotPrices: [Decimal]) {
+    public init(
+        tradeType: TradeType,
+        swapPath: SwapPath,
+        amountIn: BigUInt,
+        amountOut: BigUInt,
+        tokenIn: Token,
+        tokenOut: Token,
+        slotPrices: [Decimal]
+    ) {
         type = tradeType
         self.swapPath = swapPath
         self.slotPrices = slotPrices
@@ -35,10 +45,10 @@ extension TradeV3 {
         let decimals = tokenAmountIn.token.decimals - tokenAmountOut.token.decimals
         let tradePrice = PriceImpactHelper.price(in: tokenAmountIn.rawAmount, out: tokenAmountOut.rawAmount, shift: decimals)
 
-        var slotPrice: Decimal?
+        var slotPrice: Decimal? = nil
         if !slotPrices.isEmpty {
             var result: Decimal = 1
-            slotPrices.forEach { decimal in
+            for decimal in slotPrices {
                 result *= decimal
             }
             slotPrice = result
@@ -46,8 +56,9 @@ extension TradeV3 {
             slotPrice = nil
         }
 
-        guard let slotPrice,
-              let tradePrice
+        guard
+            let slotPrice,
+            let tradePrice
         else {
             return nil
         }

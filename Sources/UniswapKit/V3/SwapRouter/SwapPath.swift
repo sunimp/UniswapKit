@@ -10,6 +10,8 @@ import Foundation
 import BigInt
 import EvmKit
 
+// MARK: - SwapPath
+
 public class SwapPath {
     public let items: [SwapPathItem]
 
@@ -36,7 +38,7 @@ extension SwapPath {
 
         result += token1.raw
 
-        items.forEach { item in
+        for item in items {
             result += encodeUnit24(value: item.fee.rawValue) + item.token2.raw
         }
 
@@ -44,11 +46,15 @@ extension SwapPath {
     }
 }
 
+// MARK: SwapPath.PathError
+
 extension SwapPath {
     enum PathError: Error {
         case empty
     }
 }
+
+// MARK: - SwapPathItem
 
 public struct SwapPathItem {
     let token1: Address

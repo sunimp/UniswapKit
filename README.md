@@ -100,7 +100,7 @@ With `UniswapKit` you can build swap transaction that either has an exact `In` o
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sunimp/UniswapKit.Swift.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/sunimp/UniswapKit.Swift.git", .upToNextMajor(from: "3.1.0"))
 ]
 ```
 

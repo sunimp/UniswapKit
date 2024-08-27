@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - Fraction
+
 struct Fraction {
     let numerator: BigUInt
     let denominator: BigUInt
@@ -104,6 +106,8 @@ extension Fraction {
     }
 }
 
+// MARK: Comparable
+
 extension Fraction: Comparable {
     public static func < (lhs: Fraction, rhs: Fraction) -> Bool {
         lhs.numerator * rhs.denominator < rhs.numerator * lhs.denominator
@@ -113,6 +117,8 @@ extension Fraction: Comparable {
         lhs.numerator * rhs.denominator == rhs.numerator * lhs.denominator
     }
 }
+
+// MARK: CustomStringConvertible
 
 extension Fraction: CustomStringConvertible {
     public var description: String {

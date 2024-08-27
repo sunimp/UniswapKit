@@ -11,6 +11,8 @@ import BigInt
 import EvmKit
 import WWToolKit
 
+// MARK: - Kit
+
 public class Kit {
     private let tradeManager: TradeManager
     private let pairSelector: PairSelector
@@ -41,7 +43,7 @@ extension Kit {
         let tokenPairs = try pairSelector.tokenPairs(chain: chain, tokenA: tokenIn, tokenB: tokenOut)
 
         let pairs = try await withThrowingTaskGroup(of: Pair.self) { taskGroup in
-            tokenPairs.forEach { token, token2 in
+            for (token, token2) in tokenPairs {
                 taskGroup.addTask {
                     try await self.tradeManager.pair(rpcSource: rpcSource, chain: chain, tokenA: token, tokenB: token2)
                 }
@@ -55,7 +57,11 @@ extension Kit {
         return SwapData(pairs: pairs, tokenIn: tokenIn, tokenOut: tokenOut)
     }
 
-    public func bestTradeExactIn(swapData: SwapData, amountIn: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
+    public func bestTradeExactIn(
+        swapData: SwapData,
+        amountIn: Decimal,
+        options: TradeOptions = TradeOptions()
+    ) throws -> TradeData {
         guard amountIn > 0 else {
             throw TradeError.zeroAmount
         }
@@ -75,7 +81,11 @@ extension Kit {
         return TradeData(trade: bestTrade, options: options)
     }
 
-    public func bestTradeExactOut(swapData: SwapData, amountOut: Decimal, options: TradeOptions = TradeOptions()) throws -> TradeData {
+    public func bestTradeExactOut(
+        swapData: SwapData,
+        amountOut: Decimal,
+        options: TradeOptions = TradeOptions()
+    ) throws -> TradeData {
         guard amountOut > 0 else {
             throw TradeError.zeroAmount
         }

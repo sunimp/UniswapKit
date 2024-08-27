@@ -9,6 +9,8 @@ import Foundation
 
 import BigInt
 
+// MARK: - TradeData
+
 public class TradeData {
     let trade: Trade
     public let options: TradeOptions
@@ -19,12 +21,16 @@ public class TradeData {
     }
 
     var tokenAmountInMax: TokenAmount {
-        let amountInMax = ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount)).quotient
+        let amountInMax =
+            ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount)).quotient
         return TokenAmount(token: trade.tokenAmountIn.token, rawAmount: amountInMax)
     }
 
     var tokenAmountOutMin: TokenAmount {
-        let amountOutMin = ((Fraction(numerator: 1) + options.slippageFraction).inverted * Fraction(numerator: trade.tokenAmountOut.rawAmount)).quotient
+        let amountOutMin = (
+            (Fraction(numerator: 1) + options.slippageFraction)
+                .inverted * Fraction(numerator: trade.tokenAmountOut.rawAmount)
+        ).quotient
         return TokenAmount(token: trade.tokenAmountOut.token, rawAmount: amountOutMin)
     }
 }

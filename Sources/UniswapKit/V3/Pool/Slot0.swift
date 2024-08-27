@@ -10,20 +10,20 @@ import Foundation
 import BigInt
 
 struct Slot0 {
-    // the current price
+    /// the current price
     let sqrtPriceX96: BigUInt
-    // the current tick
+    /// the current tick
     let tick: BigUInt
-    // the most-recently updated index of the observations array
+    /// the most-recently updated index of the observations array
     let observationIndex: BigUInt
-    // the current maximum number of observations that are being stored
+    /// the current maximum number of observations that are being stored
     let observationCardinality: BigUInt
-    // the next maximum number of observations to store, triggered in observations.write
+    /// the next maximum number of observations to store, triggered in observations.write
     let observationCardinalityNext: BigUInt
-    // the current protocol fee as a percentage of the swap fee taken on withdrawal
-    // represented as an integer denominator (1/x)%
+    /// the current protocol fee as a percentage of the swap fee taken on withdrawal
+    /// represented as an integer denominator (1/x)%
     let feeProtocol: BigUInt
-    // whether the pool is locked
+    /// whether the pool is locked
     let unlocked: Bool
 
     init?(data: Data) {

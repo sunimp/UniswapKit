@@ -11,6 +11,8 @@ import BigInt
 import EvmKit
 import WWToolKit
 
+// MARK: - KitV3
+
 public class KitV3 {
     private let dexType: DexType
     private let quoter: QuoterV2
@@ -38,25 +40,56 @@ extension KitV3 {
         tokenFactory.token(contractAddress: contractAddress, decimals: decimals)
     }
 
-    public func bestTradeExactIn(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token, amountIn: Decimal, options: TradeOptions) async throws -> TradeDataV3 {
+    public func bestTradeExactIn(
+        rpcSource: RpcSource,
+        chain: Chain,
+        tokenIn: Token,
+        tokenOut: Token,
+        amountIn: Decimal,
+        options: TradeOptions
+    ) async throws -> TradeDataV3 {
         guard let amountIn = BigUInt(amountIn.ww.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
             throw TradeError.zeroAmount
         }
 
-        let trade = try await quoter.bestTradeExactIn(rpcSource: rpcSource, chain: chain, tokenIn: tokenIn, tokenOut: tokenOut, amountIn: amountIn)
+        let trade = try await quoter.bestTradeExactIn(
+            rpcSource: rpcSource,
+            chain: chain,
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            amountIn: amountIn
+        )
         return TradeDataV3(trade: trade, options: options)
     }
 
-    public func bestTradeExactOut(rpcSource: RpcSource, chain: Chain, tokenIn: Token, tokenOut: Token, amountOut: Decimal, options: TradeOptions) async throws -> TradeDataV3 {
+    public func bestTradeExactOut(
+        rpcSource: RpcSource,
+        chain: Chain,
+        tokenIn: Token,
+        tokenOut: Token,
+        amountOut: Decimal,
+        options: TradeOptions
+    ) async throws -> TradeDataV3 {
         guard let amountOut = BigUInt(amountOut.ww.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
             throw TradeError.zeroAmount
         }
 
-        let trade = try await quoter.bestTradeExactOut(rpcSource: rpcSource, chain: chain, tokenIn: tokenIn, tokenOut: tokenOut, amountOut: amountOut)
+        let trade = try await quoter.bestTradeExactOut(
+            rpcSource: rpcSource,
+            chain: chain,
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            amountOut: amountOut
+        )
         return TradeDataV3(trade: trade, options: options)
     }
 
-    public func transactionData(receiveAddress: Address, chain: Chain, bestTrade: TradeDataV3, tradeOptions: TradeOptions) throws -> TransactionData {
+    public func transactionData(
+        receiveAddress: Address,
+        chain: Chain,
+        bestTrade: TradeDataV3,
+        tradeOptions: TradeOptions
+    ) throws -> TransactionData {
         swapRouter.transactionData(receiveAddress: receiveAddress, chain: chain, tradeData: bestTrade, tradeOptions: tradeOptions)
     }
 }
@@ -76,13 +109,17 @@ extension KitV3 {
     public static func addDecorators(to evmKit: EvmKit.Kit) throws {
         let tokenFactory = TokenFactory()
         evmKit.add(methodDecorator: SwapV3MethodDecorator(contractMethodFactories: SwapV3ContractMethodFactories.shared))
-        try evmKit.add(transactionDecorator: SwapV3TransactionDecorator(wethAddress: tokenFactory.etherToken(chain: evmKit.chain).address))
+        try evmKit
+            .add(transactionDecorator: SwapV3TransactionDecorator(
+                wethAddress: tokenFactory.etherToken(chain: evmKit.chain)
+                    .address
+            ))
     }
 
     public static func isSupported(chain: Chain) -> Bool {
         switch chain {
-        case .ethereumGoerli, .ethereum, .polygon, .optimism, .arbitrumOne, .binanceSmartChain: return true
-        default: return false
+        case .ethereumGoerli, .ethereum, .polygon, .optimism, .arbitrumOne, .binanceSmartChain: true
+        default: false
         }
     }
 }
@@ -112,6 +149,8 @@ extension KitV3 {
         case invalidTokensForSwap
     }
 }
+
+// MARK: KitV3.KitError
 
 extension KitV3 {
     enum KitError: Error {

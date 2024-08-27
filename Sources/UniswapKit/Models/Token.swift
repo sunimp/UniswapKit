@@ -9,21 +9,23 @@ import Foundation
 
 import EvmKit
 
+// MARK: - Token
+
 public enum Token {
     case eth(wethAddress: Address)
     case erc20(address: Address, decimals: Int)
 
     public var address: Address {
         switch self {
-        case let .eth(wethAddress): return wethAddress
-        case let .erc20(address, _): return address
+        case .eth(let wethAddress): wethAddress
+        case .erc20(let address, _): address
         }
     }
 
     var decimals: Int {
         switch self {
-        case .eth: return 18
-        case let .erc20(_, decimals): return decimals
+        case .eth: 18
+        case .erc20(_, let decimals): decimals
         }
     }
 
@@ -33,27 +35,34 @@ public enum Token {
 
     public var isEther: Bool {
         switch self {
-        case .eth: return true
-        default: return false
+        case .eth: true
+        default: false
         }
     }
 }
+
+// MARK: Equatable
 
 extension Token: Equatable {
     public static func == (lhs: Token, rhs: Token) -> Bool {
         switch (lhs, rhs) {
-        case let (.eth(lhsWethAddress), .eth(rhsWethAddress)): return lhsWethAddress == rhsWethAddress
-        case let (.erc20(lhsAddress, lhsDecimals), .erc20(rhsAddress, rhsDecimals)): return lhsAddress == rhsAddress && lhsDecimals == rhsDecimals
-        default: return false
+        case (.eth(let lhsWethAddress), .eth(let rhsWethAddress)): lhsWethAddress == rhsWethAddress
+
+        case (.erc20(let lhsAddress, let lhsDecimals), .erc20(let rhsAddress, let rhsDecimals)): lhsAddress == rhsAddress &&
+            lhsDecimals == rhsDecimals
+
+        default: false
         }
     }
 }
 
+// MARK: CustomStringConvertible
+
 extension Token: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .eth: return "[ETH]"
-        case let .erc20(address, _): return "[ERC20: \(address)]"
+        case .eth: "[ETH]"
+        case .erc20(let address, _): "[ERC20: \(address)]"
         }
     }
 }

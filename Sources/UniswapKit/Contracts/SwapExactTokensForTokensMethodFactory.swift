@@ -1,18 +1,21 @@
 //
 //  SwapExactTokensForTokensMethodFactory.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2021/3/4.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class SwapExactTokensForTokensMethodFactory: IContractMethodFactory {
-    let methodId: Data = ContractMethodHelper
-        .methodId(signature: SwapExactTokensForTokensMethod.methodSignature(supportingFeeOnTransfer: false))
+    // MARK: Properties
+
+    let methodID: Data = ContractMethodHelper
+        .methodID(signature: SwapExactTokensForTokensMethod.methodSignature(supportingFeeOnTransfer: false))
+
+    // MARK: Functions
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(

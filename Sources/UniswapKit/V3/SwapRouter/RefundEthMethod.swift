@@ -1,16 +1,19 @@
 //
 //  RefundEthMethod.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 class RefundEthMethod: ContractMethod {
+    // MARK: Static Properties
+
     static let methodSignature = "refundETH()"
+
+    // MARK: Overridden Properties
 
     override var methodSignature: String { RefundEthMethod.methodSignature }
 

@@ -1,18 +1,21 @@
 //
 //  SwapMethodDecorator.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2022/4/7.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 // MARK: - SwapMethodDecorator
 
 class SwapMethodDecorator {
+    // MARK: Properties
+
     private let contractMethodFactories: SwapContractMethodFactories
+
+    // MARK: Lifecycle
 
     init(contractMethodFactories: SwapContractMethodFactories) {
         self.contractMethodFactories = contractMethodFactories

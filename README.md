@@ -1,6 +1,6 @@
 # UniswapKit.Swift
 
-`UniswapKit.Swift` extends `EvmKit.Swift` to support `Uniswap` DEX and some other DEXes using the same smart contract codebase. Currently, Uses this kit for integration of `Uniswap`(Ethereum), `PancakeSwap`(BSC), `QuickSwap`(Polygon) and `Trader Joe`(Avalanche)
+`UniswapKit.Swift` extends `EVMKit.Swift` to support `Uniswap` DEX and some other DEXes using the same smart contract codebase. Currently, Uses this kit for integration of `Uniswap`(Ethereum), `PancakeSwap`(BSC), `QuickSwap`(Polygon) and `Trader Joe`(Avalanche)
 
 ## Features
 
@@ -13,15 +13,15 @@
 ### Initialization
 
 ```swift
-import EvmKit
+import EVMKit
 import UniswapKit
 
 let evmKit = try Kit.instance(
-	address: try EvmKit.Address(hex: "0x..user..address.."),
+	address: try EVMKit.Address(hex: "0x..user..address.."),
 	chain: .ethereum,
 	rpcSource: .ethereumInfuraWebsocket(projectId: "...", projectSecret: "..."),
 	transactionSource: .ethereumEtherscan(apiKey: "..."),
-	walletId: "unique_wallet_id",
+	walletID: "unique_wallet_id",
 	minLogLevel: .error
 )
 
@@ -40,7 +40,7 @@ let signer = try Signer.instance(seed: seed, chain: .ethereum)
 
 // Sample swap data
 let tokenIn = uniswapKit.etherToken
-let tokenOut = uniswapKit.token(contractAddress: try! EvmKit.Address(hex: "0x..token..address"), decimals: 18)
+let tokenOut = uniswapKit.token(contractAddress: try! EVMKit.Address(hex: "0x..token..address"), decimals: 18)
 let amount: Decimal = 0.1
 let gasPrice = GasPrice.legacy(gasPrice: 50_000_000_000)
 
@@ -50,7 +50,7 @@ let transactionDataSingle: Single<TransactionData> = uniswapKit.swapDataSingle(t
         // Get TradeData. TradeData is the best swap route evaluated by UniswapKit
         let tradeData = try! uniswapKit.bestTradeExactIn(swapData: swapData, amountIn: amount)
         
-        // Convert TradeData to EvmKit TransactionData
+        // Convert TradeData to EVMKit TransactionData
         return try! uniswapKit.transactionData(tradeData: tradeData)
     }
 
@@ -100,11 +100,11 @@ With `UniswapKit` you can build swap transaction that either has an exact `In` o
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sunimp/UniswapKit.Swift.git", .upToNextMajor(from: "3.1.1"))
+    .package(url: "https://github.com/sunimp/UniswapKit.Swift.git", .upToNextMajor(from: "3.2.0"))
 ]
 ```
 
 ## License
 
-The `UniswapKit.Swift` toolkit is open source and available under the terms of the [MIT License](https://github.com/sunimp/UniswapKit.Swift/blob/master/LICENSE).
+The `UniswapKit.Swift` toolkit is open source and available under the terms of the [MIT License](https://github.com/sunimp/UniswapKit.Swift/blob/main/LICENSE).
 

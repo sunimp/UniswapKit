@@ -1,8 +1,7 @@
 //
 //  QuoteExactSingleResponse.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/5/8.
 //
 
 import Foundation
@@ -10,10 +9,14 @@ import Foundation
 import BigInt
 
 class QuoteExactSingleResponse {
+    // MARK: Properties
+
     let amount: BigUInt
     let sqrtPriceX96After: BigUInt
     let initializedTicksCrossed: BigUInt
     let gasEstimate: BigUInt
+
+    // MARK: Lifecycle
 
     init?(data: Data) {
         guard data.count == 128 else {

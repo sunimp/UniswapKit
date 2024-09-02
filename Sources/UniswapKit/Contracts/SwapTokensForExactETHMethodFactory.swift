@@ -1,17 +1,20 @@
 //
 //  SwapTokensForExactETHMethodFactory.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2021/3/4.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class SwapTokensForExactETHMethodFactory: IContractMethodFactory {
-    let methodId: Data = ContractMethodHelper.methodId(signature: SwapTokensForExactETHMethod.methodSignature)
+    // MARK: Properties
+
+    let methodID: Data = ContractMethodHelper.methodID(signature: SwapTokensForExactETHMethod.methodSignature)
+
+    // MARK: Functions
 
     func createMethod(inputArguments: Data) throws -> ContractMethod {
         let parsedArguments = ContractMethodHelper.decodeABI(
@@ -28,6 +31,12 @@ class SwapTokensForExactETHMethodFactory: IContractMethodFactory {
             throw ContractMethodFactories.DecodeError.invalidABI
         }
 
-        return SwapTokensForExactETHMethod(amountOut: amountOut, amountInMax: amountInMax, path: path, to: to, deadline: deadline)
+        return SwapTokensForExactETHMethod(
+            amountOut: amountOut,
+            amountInMax: amountInMax,
+            path: path,
+            to: to,
+            deadline: deadline
+        )
     }
 }

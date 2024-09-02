@@ -1,14 +1,13 @@
 //
 //  GetReservesMethod.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/9/22.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class GetReservesMethod: ContractMethod {
     override var methodSignature: String { "getReserves()" }

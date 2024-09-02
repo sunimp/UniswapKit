@@ -1,25 +1,30 @@
 //
 //  TradeManager.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/6/24.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 import WWCryptoKit
 import WWToolKit
 
 // MARK: - TradeManager
 
 class TradeManager {
+    // MARK: Properties
+
     private let networkManager: NetworkManager
+
+    // MARK: Lifecycle
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
+
+    // MARK: Functions
 
     private func buildSwapData(receiveAddress: Address, tradeData: TradeData) throws -> SwapData {
         let trade = tradeData.trade
@@ -69,7 +74,8 @@ class TradeManager {
         to: Address,
         deadline: BigUInt,
         tradeData: TradeData
-    ) throws -> ContractMethod {
+    ) throws
+        -> ContractMethod {
         let amountInMax = tradeData.tokenAmountInMax.rawAmount
         let amountOut = tradeData.trade.tokenAmountOut.rawAmount
 
@@ -107,7 +113,8 @@ class TradeManager {
         deadline: BigUInt,
         tradeData: TradeData,
         trade: Trade
-    ) throws -> ContractMethod {
+    ) throws
+        -> ContractMethod {
         let amountIn = trade.tokenAmountIn.rawAmount
         let amountOutMin = tradeData.tokenAmountOutMin.rawAmount
         let supportingFeeOnTransfer = tradeData.options.feeOnTransfer
@@ -160,7 +167,7 @@ extension TradeManager {
 
 //        print("PAIR ADDRESS: \(pairAddress.toHexString())")
 
-        let data = try await EvmKit.Kit.call(
+        let data = try await EVMKit.Kit.call(
             networkManager: networkManager,
             rpcSource: rpcSource,
             contractAddress: pairAddress,
@@ -216,7 +223,8 @@ extension TradeManager {
         maxHops: Int = 3,
         currentPairs: [Pair] = [],
         originalTokenAmountIn: TokenAmount? = nil
-    ) throws -> [Trade] {
+    ) throws
+        -> [Trade] {
         // TODO: guards
 
         var trades = [Trade]()
@@ -234,7 +242,11 @@ extension TradeManager {
             if tokenAmountOut.token == tokenOut {
                 let trade = try Trade(
                     type: .exactIn,
-                    route: Route(pairs: currentPairs + [pair], tokenIn: originalTokenAmountIn.token, tokenOut: tokenOut),
+                    route: Route(
+                        pairs: currentPairs + [pair],
+                        tokenIn: originalTokenAmountIn.token,
+                        tokenOut: tokenOut
+                    ),
                     tokenAmountIn: originalTokenAmountIn,
                     tokenAmountOut: tokenAmountOut
                 )
@@ -266,7 +278,8 @@ extension TradeManager {
         maxHops: Int = 3,
         currentPairs: [Pair] = [],
         originalTokenAmountOut: TokenAmount? = nil
-    ) throws -> [Trade] {
+    ) throws
+        -> [Trade] {
         // TODO: guards
 
         var trades = [Trade]()
@@ -284,7 +297,11 @@ extension TradeManager {
             if tokenAmountIn.token == tokenIn {
                 let trade = try Trade(
                     type: .exactOut,
-                    route: Route(pairs: [pair] + currentPairs, tokenIn: tokenIn, tokenOut: originalTokenAmountOut.token),
+                    route: Route(
+                        pairs: [pair] + currentPairs,
+                        tokenIn: tokenIn,
+                        tokenOut: originalTokenAmountOut.token
+                    ),
                     tokenAmountIn: tokenAmountIn,
                     tokenAmountOut: originalTokenAmountOut
                 )
@@ -311,7 +328,10 @@ extension TradeManager {
 
     static func routerAddress(chain: Chain) throws -> Address {
         switch chain {
-        case .ethereum, .ethereumRopsten, .ethereumRinkeby, .ethereumKovan,
+        case .ethereum,
+             .ethereumRopsten,
+             .ethereumRinkeby,
+             .ethereumKovan,
              .ethereumGoerli: return try Address(hex: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
         case .binanceSmartChain: return try Address(hex: "0x10ED43C718714eb63d5aA57B78B54704E256024E")
         case .polygon: return try Address(hex: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff")
@@ -322,7 +342,10 @@ extension TradeManager {
 
     private static func factoryAddressString(chain: Chain) throws -> String {
         switch chain {
-        case .ethereum, .ethereumRopsten, .ethereumRinkeby, .ethereumKovan,
+        case .ethereum,
+             .ethereumRopsten,
+             .ethereumRinkeby,
+             .ethereumKovan,
              .ethereumGoerli: return "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
         case .binanceSmartChain: return "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
         case .polygon: return "0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32"
@@ -333,7 +356,10 @@ extension TradeManager {
 
     private static func initCodeHashString(chain: Chain) throws -> String {
         switch chain {
-        case .ethereum, .ethereumRopsten, .ethereumRinkeby, .ethereumKovan,
+        case .ethereum,
+             .ethereumRopsten,
+             .ethereumRinkeby,
+             .ethereumKovan,
              .ethereumGoerli: return "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f"
         case .binanceSmartChain: return "0x00fb7f630766e6a796048ea87d01acd3068e8ff67d078148a3fa3f4a84f69bd5"
         case .polygon: return "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f"

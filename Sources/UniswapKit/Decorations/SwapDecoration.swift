@@ -1,19 +1,20 @@
 //
 //  SwapDecoration.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2022/4/7.
 //
 
 import Foundation
 
 import BigInt
-import Eip20Kit
-import EvmKit
+import EIP20Kit
+import EVMKit
 
 // MARK: - SwapDecoration
 
 public class SwapDecoration: TransactionDecoration {
+    // MARK: Properties
+
     public let contractAddress: Address
     public let amountIn: Amount
     public let amountOut: Amount
@@ -21,6 +22,8 @@ public class SwapDecoration: TransactionDecoration {
     public let tokenOut: Token
     public let recipient: Address?
     public let deadline: BigUInt?
+
+    // MARK: Lifecycle
 
     public init(
         contractAddress: Address,
@@ -42,19 +45,7 @@ public class SwapDecoration: TransactionDecoration {
         super.init()
     }
 
-    private func tag(token: Token, type: TransactionTag.TagType) -> TransactionTag {
-        let addresses = recipient.map { [$0.hex] } ?? []
-
-        switch token {
-        case .evmCoin: return TransactionTag(type: type, protocol: .native, addresses: addresses)
-        case .eip20Coin(let tokenAddress, _): return TransactionTag(
-                type: type,
-                protocol: .eip20,
-                contractAddress: tokenAddress,
-                addresses: addresses
-            )
-        }
-    }
+    // MARK: Overridden Functions
 
     override public func tags() -> [TransactionTag] {
         var tags = [
@@ -69,10 +60,25 @@ public class SwapDecoration: TransactionDecoration {
 
         return tags
     }
+
+    // MARK: Functions
+
+    private func tag(token: Token, type: TransactionTag.TagType) -> TransactionTag {
+        let addresses = recipient.map { [$0.hex] } ?? []
+
+        switch token {
+        case .evmCoin: return TransactionTag(type: type, protocol: .native, addresses: addresses)
+        case let .eip20Coin(tokenAddress, _): return TransactionTag(
+                type: type,
+                protocol: .eip20,
+                contractAddress: tokenAddress,
+                addresses: addresses
+            )
+        }
+    }
 }
 
 extension SwapDecoration {
-    
     public enum Amount {
         case exact(value: BigUInt)
         case extremum(value: BigUInt)
@@ -82,9 +88,11 @@ extension SwapDecoration {
         case evmCoin
         case eip20Coin(address: Address, tokenInfo: TokenInfo?)
 
+        // MARK: Computed Properties
+
         public var tokenInfo: TokenInfo? {
             switch self {
-            case .eip20Coin(_, let tokenInfo): tokenInfo
+            case let .eip20Coin(_, tokenInfo): tokenInfo
             default: nil
             }
         }

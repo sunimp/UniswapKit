@@ -8,8 +8,8 @@
 import UIKit
 
 import BigInt
-import Eip20Kit
-import EvmKit
+import EIP20Kit
+import EVMKit
 import SnapKit
 import UniswapKit
 
@@ -311,7 +311,7 @@ class SwapController: UIViewController {
         }
         Task {
             do {
-                let eip20Kit = try Eip20Kit.Kit.instance(evmKit: Manager.shared.evmKit, contractAddress: token.address)
+                let eip20Kit = try EIP20Kit.Kit.instance(evmKit: Manager.shared.evmKit, contractAddress: token.address)
                 let allowance = try await eip20Kit.allowance(spenderAddress: uniswapKit.routerAddress(chain: .binanceSmartChain))
                 sync(allowance: allowance)
             } catch {
@@ -329,7 +329,7 @@ class SwapController: UIViewController {
             return
         }
 
-        guard let eip20Kit = try? Eip20Kit.Kit.instance(evmKit: Manager.shared.evmKit, contractAddress: token(fromToken).address) else {
+        guard let eip20Kit = try? EIP20Kit.Kit.instance(evmKit: Manager.shared.evmKit, contractAddress: token(fromToken).address) else {
             show(error: "Can't create Eip20 Kit for token!")
             return
         }

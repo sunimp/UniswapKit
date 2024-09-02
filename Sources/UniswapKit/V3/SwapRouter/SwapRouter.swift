@@ -1,28 +1,34 @@
 //
 //  SwapRouter.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 // MARK: - SwapRouter
 
 class SwapRouter {
+    // MARK: Properties
+
     private let dexType: DexType
+
+    // MARK: Lifecycle
 
     init(dexType: DexType) {
         self.dexType = dexType
     }
 
+    // MARK: Functions
+
     private func buildMethodForExact(
         tradeData: TradeDataV3,
         recipient: Address
-    ) -> ContractMethod {
+    )
+        -> ContractMethod {
         let trade = tradeData.trade
         if trade.swapPath.isSingle {
             switch trade.type {
@@ -76,7 +82,8 @@ extension SwapRouter {
         chain: Chain,
         tradeData: TradeDataV3,
         tradeOptions: TradeOptions
-    ) -> TransactionData {
+    )
+        -> TransactionData {
         let recipient = tradeOptions.recipient ?? receiveAddress
 //        let deadline = BigUInt(Date().timeIntervalSince1970 + tradeOptions.ttl)
 
@@ -98,11 +105,18 @@ extension SwapRouter {
             methods.append(RefundEthMethod())
         }
         if tradeData.trade.tokenAmountOut.token.isEther {
-            methods.append(UnwrapWeth9Method(amountMinimum: tradeData.tokenAmountOutMin.rawAmount, recipient: recipient))
+            methods.append(UnwrapWeth9Method(
+                amountMinimum: tradeData.tokenAmountOutMin.rawAmount,
+                recipient: recipient
+            ))
         }
 
         let resultMethod = (methods.count > 1) ? MulticallMethod(methods: methods) : swapMethod
 
-        return TransactionData(to: dexType.routerAddress(chain: chain), value: ethValue, input: resultMethod.encodedABI())
+        return TransactionData(
+            to: dexType.routerAddress(chain: chain),
+            value: ethValue,
+            input: resultMethod.encodedABI()
+        )
     }
 }

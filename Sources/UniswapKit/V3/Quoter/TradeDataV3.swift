@@ -1,8 +1,7 @@
 //
 //  TradeDataV3.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/10.
 //
 
 import Foundation
@@ -12,17 +11,18 @@ import BigInt
 // MARK: - TradeDataV3
 
 public class TradeDataV3 {
-    let trade: TradeV3
+    // MARK: Properties
+
     public let options: TradeOptions
 
-    public init(trade: TradeV3, options: TradeOptions) {
-        self.trade = trade
-        self.options = options
-    }
+    let trade: TradeV3
+
+    // MARK: Computed Properties
 
     var tokenAmountInMax: TokenAmount {
         let amountInMax =
-            ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount)).quotient
+            ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount))
+                .quotient
         return TokenAmount(token: trade.tokenAmountIn.token, rawAmount: amountInMax)
     }
 
@@ -33,6 +33,13 @@ public class TradeDataV3 {
         ).quotient
         return TokenAmount(token: trade.tokenAmountOut.token, rawAmount: amountOutMin)
     }
+
+    // MARK: Lifecycle
+
+    public init(trade: TradeV3, options: TradeOptions) {
+        self.trade = trade
+        self.options = options
+    }
 }
 
 extension TradeDataV3 {
@@ -41,7 +48,6 @@ extension TradeDataV3 {
 }
 
 extension TradeDataV3 {
-    
     public var type: TradeType {
         trade.type
     }

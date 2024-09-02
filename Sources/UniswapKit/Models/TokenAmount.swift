@@ -1,8 +1,7 @@
 //
 //  TokenAmount.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/9.
 //
 
 import Foundation
@@ -12,8 +11,22 @@ import BigInt
 // MARK: - TokenAmount
 
 struct TokenAmount {
+    // MARK: Properties
+
     let token: Token
     let fraction: Fraction
+
+    // MARK: Computed Properties
+
+    var rawAmount: BigUInt {
+        fraction.numerator
+    }
+
+    var decimalAmount: Decimal? {
+        fraction.toDecimal(decimals: token.decimals)
+    }
+
+    // MARK: Lifecycle
 
     init(token: Token, rawAmount: BigUInt) {
         self.token = token
@@ -37,14 +50,6 @@ struct TokenAmount {
             }
 
         self.init(token: token, rawAmount: rawAmount)
-    }
-
-    var rawAmount: BigUInt {
-        fraction.numerator
-    }
-
-    var decimalAmount: Decimal? {
-        fraction.toDecimal(decimals: token.decimals)
     }
 }
 

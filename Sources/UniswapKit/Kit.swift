@@ -1,22 +1,25 @@
 //
 //  Kit.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/6/24.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 import WWToolKit
 
 // MARK: - Kit
 
 public class Kit {
+    // MARK: Properties
+
     private let tradeManager: TradeManager
     private let pairSelector: PairSelector
     private let tokenFactory: TokenFactory
+
+    // MARK: Lifecycle
 
     init(tradeManager: TradeManager, pairSelector: PairSelector, tokenFactory: TokenFactory) {
         self.tradeManager = tradeManager
@@ -26,7 +29,6 @@ public class Kit {
 }
 
 extension Kit {
-    
     public func routerAddress(chain: Chain) throws -> Address {
         try TradeManager.routerAddress(chain: chain)
     }
@@ -61,7 +63,8 @@ extension Kit {
         swapData: SwapData,
         amountIn: Decimal,
         options: TradeOptions = TradeOptions()
-    ) throws -> TradeData {
+    ) throws
+        -> TradeData {
         guard amountIn > 0 else {
             throw TradeError.zeroAmount
         }
@@ -85,7 +88,8 @@ extension Kit {
         swapData: SwapData,
         amountOut: Decimal,
         options: TradeOptions = TradeOptions()
-    ) throws -> TradeData {
+    ) throws
+        -> TradeData {
         guard amountOut > 0 else {
             throw TradeError.zeroAmount
         }
@@ -117,19 +121,16 @@ extension Kit {
         let tokenFactory = TokenFactory()
         let pairSelector = PairSelector(tokenFactory: tokenFactory)
 
-        let uniswapKit = Kit(tradeManager: tradeManager, pairSelector: pairSelector, tokenFactory: tokenFactory)
-
-        return uniswapKit
+        return Kit(tradeManager: tradeManager, pairSelector: pairSelector, tokenFactory: tokenFactory)
     }
 
-    public static func addDecorators(to evmKit: EvmKit.Kit) {
+    public static func addDecorators(to evmKit: EVMKit.Kit) {
         evmKit.add(methodDecorator: SwapMethodDecorator(contractMethodFactories: SwapContractMethodFactories.shared))
         evmKit.add(transactionDecorator: SwapTransactionDecorator())
     }
 }
 
 extension Kit {
-    
     public enum FractionError: Error {
         case negativeDecimal
         case invalidSignificand(value: String)

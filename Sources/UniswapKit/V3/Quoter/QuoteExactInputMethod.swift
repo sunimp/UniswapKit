@@ -1,31 +1,38 @@
 //
 //  QuoteExactInputMethod.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class QuoteExactInputMethod: ContractMethod {
+    // MARK: Static Properties
+
     static let methodSignature = "quoteExactInput(bytes,uint256)"
+
+    // MARK: Overridden Properties
+
+    override var methodSignature: String { QuoteExactInputMethod.methodSignature }
+
+    override var arguments: [Any] {
+        [swapPath.abiEncodePacked, amountIn]
+    }
+
+    // MARK: Properties
 
     let swapPath: SwapPath
     let amountIn: BigUInt
+
+    // MARK: Lifecycle
 
     init(swapPath: SwapPath, amountIn: BigUInt) {
         self.swapPath = swapPath
         self.amountIn = amountIn
 
         super.init()
-    }
-
-    override var methodSignature: String { QuoteExactInputMethod.methodSignature }
-
-    override var arguments: [Any] {
-        [swapPath.abiEncodePacked, amountIn]
     }
 }

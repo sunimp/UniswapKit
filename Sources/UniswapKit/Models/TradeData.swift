@@ -1,8 +1,7 @@
 //
 //  TradeData.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/10.
 //
 
 import Foundation
@@ -12,17 +11,18 @@ import BigInt
 // MARK: - TradeData
 
 public class TradeData {
-    let trade: Trade
+    // MARK: Properties
+
     public let options: TradeOptions
 
-    init(trade: Trade, options: TradeOptions) {
-        self.trade = trade
-        self.options = options
-    }
+    let trade: Trade
+
+    // MARK: Computed Properties
 
     var tokenAmountInMax: TokenAmount {
         let amountInMax =
-            ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount)).quotient
+            ((Fraction(numerator: 1) + options.slippageFraction) * Fraction(numerator: trade.tokenAmountIn.rawAmount))
+                .quotient
         return TokenAmount(token: trade.tokenAmountIn.token, rawAmount: amountInMax)
     }
 
@@ -33,10 +33,16 @@ public class TradeData {
         ).quotient
         return TokenAmount(token: trade.tokenAmountOut.token, rawAmount: amountOutMin)
     }
+
+    // MARK: Lifecycle
+
+    init(trade: Trade, options: TradeOptions) {
+        self.trade = trade
+        self.options = options
+    }
 }
 
 extension TradeData {
-    
     public var type: TradeType {
         trade.type
     }
@@ -74,7 +80,8 @@ extension TradeData {
     }
 
     public var providerFee: Decimal? {
-        guard let amountIn = type == .exactIn ? trade.tokenAmountIn.decimalAmount : tokenAmountInMax.decimalAmount else {
+        guard let amountIn = type == .exactIn ? trade.tokenAmountIn.decimalAmount : tokenAmountInMax.decimalAmount
+        else {
             return nil
         }
 

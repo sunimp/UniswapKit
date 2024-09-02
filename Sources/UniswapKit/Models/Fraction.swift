@@ -1,8 +1,7 @@
 //
 //  Fraction.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/15.
 //
 
 import Foundation
@@ -12,8 +11,22 @@ import BigInt
 // MARK: - Fraction
 
 struct Fraction {
+    // MARK: Properties
+
     let numerator: BigUInt
     let denominator: BigUInt
+
+    // MARK: Computed Properties
+
+    var quotient: BigUInt {
+        numerator / denominator
+    }
+
+    var inverted: Fraction {
+        Fraction(numerator: denominator, denominator: numerator)
+    }
+
+    // MARK: Lifecycle
 
     init(numerator: BigUInt, denominator: BigUInt = 1) {
         self.numerator = numerator
@@ -38,13 +51,7 @@ struct Fraction {
         }
     }
 
-    var quotient: BigUInt {
-        numerator / denominator
-    }
-
-    var inverted: Fraction {
-        Fraction(numerator: denominator, denominator: numerator)
-    }
+    // MARK: Functions
 
     func toDecimal(decimals: Int) -> Decimal? {
         let adjustedNumerator = numerator * BigUInt(10).power(decimals)

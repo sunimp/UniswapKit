@@ -1,20 +1,26 @@
 //
 //  SwapExactETHForTokensMethod.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/9/22.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class SwapExactETHForTokensMethod: ContractMethod {
-    static func methodSignature(supportingFeeOnTransfer: Bool) -> String {
-        let supporting = supportingFeeOnTransfer ? "SupportingFeeOnTransferTokens" : ""
-        return "swapExactETHForTokens\(supporting)(uint256,address[],address,uint256)"
+    // MARK: Overridden Properties
+
+    override var methodSignature: String {
+        SwapExactETHForTokensMethod.methodSignature(supportingFeeOnTransfer: supportingFeeOnTransfer)
     }
+
+    override var arguments: [Any] {
+        [amountOutMin, path, to, deadline]
+    }
+
+    // MARK: Properties
 
     let amountOutMin: BigUInt
     let path: [Address]
@@ -22,6 +28,8 @@ class SwapExactETHForTokensMethod: ContractMethod {
     let deadline: BigUInt
 
     private let supportingFeeOnTransfer: Bool
+
+    // MARK: Lifecycle
 
     init(amountOut: BigUInt, path: [Address], to: Address, deadline: BigUInt, supportingFeeOnTransfer: Bool = false) {
         amountOutMin = amountOut
@@ -33,11 +41,10 @@ class SwapExactETHForTokensMethod: ContractMethod {
         super.init()
     }
 
-    override var methodSignature: String {
-        SwapExactETHForTokensMethod.methodSignature(supportingFeeOnTransfer: supportingFeeOnTransfer)
-    }
+    // MARK: Static Functions
 
-    override var arguments: [Any] {
-        [amountOutMin, path, to, deadline]
+    static func methodSignature(supportingFeeOnTransfer: Bool) -> String {
+        let supporting = supportingFeeOnTransfer ? "SupportingFeeOnTransferTokens" : ""
+        return "swapExactETHForTokens\(supporting)(uint256,address[],address,uint256)"
     }
 }

@@ -1,25 +1,28 @@
 //
 //  Pool.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/5/8.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 import WWToolKit
 
 // MARK: - Pool
 
 class Pool {
+    // MARK: Properties
+
+    let poolAddress: Address
+
     private let networkManager: NetworkManager
     private let rpcSource: RpcSource
     private let token0: Address
     private let token1: Address
     private let fee: KitV3.FeeAmount
 
-    let poolAddress: Address
+    // MARK: Lifecycle
 
     init(
         networkManager: NetworkManager,
@@ -51,20 +54,22 @@ class Pool {
         poolAddress = Address(raw: poolData[0 ..< 32])
     }
 
+    // MARK: Static Functions
+
     private static func call(
         networkManager: NetworkManager,
         rpcSource: RpcSource,
         address: Address,
         data: Data
-    ) async throws -> Data {
+    ) async throws
+        -> Data {
         do {
-            let a = try await EvmKit.Kit.call(
+            return try await EVMKit.Kit.call(
                 networkManager: networkManager,
                 rpcSource: rpcSource,
                 contractAddress: address,
                 data: data
             )
-            return a
         } catch {
             throw error
         }

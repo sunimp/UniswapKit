@@ -1,23 +1,28 @@
 //
 //  SwapPath.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 // MARK: - SwapPath
 
 public class SwapPath {
+    // MARK: Properties
+
     public let items: [SwapPathItem]
+
+    // MARK: Lifecycle
 
     public init(_ items: [SwapPathItem]) {
         self.items = items
     }
+
+    // MARK: Functions
 
     private func encodeUnit24(value: BigUInt) -> Data {
         let data = value.serialize()
@@ -57,9 +62,13 @@ extension SwapPath {
 // MARK: - SwapPathItem
 
 public struct SwapPathItem {
+    // MARK: Properties
+
     let token1: Address
     let token2: Address
     let fee: KitV3.FeeAmount
+
+    // MARK: Lifecycle
 
     public init(token1: Address, token2: Address, fee: KitV3.FeeAmount) {
         self.token1 = token1

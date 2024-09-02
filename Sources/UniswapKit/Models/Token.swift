@@ -1,13 +1,12 @@
 //
 //  Token.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/9.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 // MARK: - Token
 
@@ -15,22 +14,13 @@ public enum Token {
     case eth(wethAddress: Address)
     case erc20(address: Address, decimals: Int)
 
+    // MARK: Computed Properties
+
     public var address: Address {
         switch self {
-        case .eth(let wethAddress): wethAddress
-        case .erc20(let address, _): address
+        case let .eth(wethAddress): wethAddress
+        case let .erc20(address, _): address
         }
-    }
-
-    var decimals: Int {
-        switch self {
-        case .eth: 18
-        case .erc20(_, let decimals): decimals
-        }
-    }
-
-    func sortsBefore(token: Token) -> Bool {
-        address.raw.ww.hexString.lowercased() < token.address.raw.ww.hexString.lowercased()
     }
 
     public var isEther: Bool {
@@ -39,6 +29,19 @@ public enum Token {
         default: false
         }
     }
+
+    var decimals: Int {
+        switch self {
+        case .eth: 18
+        case let .erc20(_, decimals): decimals
+        }
+    }
+
+    // MARK: Functions
+
+    func sortsBefore(token: Token) -> Bool {
+        address.raw.ww.hexString.lowercased() < token.address.raw.ww.hexString.lowercased()
+    }
 }
 
 // MARK: Equatable
@@ -46,9 +49,9 @@ public enum Token {
 extension Token: Equatable {
     public static func == (lhs: Token, rhs: Token) -> Bool {
         switch (lhs, rhs) {
-        case (.eth(let lhsWethAddress), .eth(let rhsWethAddress)): lhsWethAddress == rhsWethAddress
+        case let (.eth(lhsWethAddress), .eth(rhsWethAddress)): lhsWethAddress == rhsWethAddress
 
-        case (.erc20(let lhsAddress, let lhsDecimals), .erc20(let rhsAddress, let rhsDecimals)): lhsAddress == rhsAddress &&
+        case let (.erc20(lhsAddress, lhsDecimals), .erc20(rhsAddress, rhsDecimals)): lhsAddress == rhsAddress &&
             lhsDecimals == rhsDecimals
 
         default: false
@@ -62,7 +65,7 @@ extension Token: CustomStringConvertible {
     public var description: String {
         switch self {
         case .eth: "[ETH]"
-        case .erc20(let address, _): "[ERC20: \(address)]"
+        case let .erc20(address, _): "[ERC20: \(address)]"
         }
     }
 }

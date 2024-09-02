@@ -1,8 +1,7 @@
 //
 //  Trade.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/9.
 //
 
 import Foundation
@@ -12,6 +11,8 @@ import BigInt
 // MARK: - Trade
 
 struct Trade {
+    // MARK: Properties
+
     let type: TradeType
     let route: Route
     let tokenAmountIn: TokenAmount
@@ -19,6 +20,8 @@ struct Trade {
     let executionPrice: Price
     let priceImpact: Fraction
     let liquidityProviderFee: Fraction
+
+    // MARK: Lifecycle
 
     init(type: TradeType, route: Route, tokenAmountIn: TokenAmount, tokenAmountOut: TokenAmount) {
         self.type = type
@@ -36,7 +39,14 @@ struct Trade {
         liquidityProviderFee = Trade.computeLiquidityProviderFee(pairCount: route.pairs.count)
     }
 
-    private static func computePriceImpact(midPrice: Price, tokenAmountIn: TokenAmount, tokenAmountOut: TokenAmount) -> Fraction {
+    // MARK: Static Functions
+
+    private static func computePriceImpact(
+        midPrice: Price,
+        tokenAmountIn: TokenAmount,
+        tokenAmountOut: TokenAmount
+    )
+        -> Fraction {
         let exactQuote = midPrice.fraction * Fraction(numerator: tokenAmountIn.rawAmount) * Fraction(
             numerator: 997,
             denominator: 1000
@@ -45,7 +55,10 @@ struct Trade {
     }
 
     private static func computeLiquidityProviderFee(pairCount: Int) -> Fraction {
-        Fraction(numerator: 1) - Fraction(numerator: BigUInt(997).power(pairCount), denominator: BigUInt(1000).power(pairCount))
+        Fraction(numerator: 1) - Fraction(
+            numerator: BigUInt(997).power(pairCount),
+            denominator: BigUInt(1000).power(pairCount)
+        )
     }
 }
 

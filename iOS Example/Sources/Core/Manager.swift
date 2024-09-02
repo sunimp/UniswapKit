@@ -7,8 +7,8 @@
 
 import Foundation
 
-import Eip20Kit
-import EvmKit
+import EIP20Kit
+import EVMKit
 import HDWalletKit
 import UniswapKit
 
@@ -18,7 +18,7 @@ class Manager {
     private let keyWords = "mnemonic_words"
     private let keyAddress = "address"
 
-    var evmKit: EvmKit.Kit!
+    var evmKit: EVMKit.Kit!
     var signer: Signer!
     var adapter: EthereumAdapter!
 
@@ -36,11 +36,11 @@ class Manager {
             chain: configuration.chain,
             rpcSource: configuration.rpcSource,
             transactionSource: configuration.transactionSource,
-            walletId: "walletId",
+            walletID: "walletID",
             minLogLevel: configuration.minLogLevel
         )
 
-        Eip20Kit.Kit.addDecorators(to: evmKit)
+        EIP20Kit.Kit.addDecorators(to: evmKit)
         UniswapKit.Kit.addDecorators(to: evmKit)
         try KitV3.addDecorators(to: evmKit)
 

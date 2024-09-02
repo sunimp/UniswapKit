@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-import EvmKit
+import EVMKit
 import SnapKit
 
 class SendController: UIViewController {

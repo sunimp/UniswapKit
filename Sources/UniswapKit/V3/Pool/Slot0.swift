@@ -1,8 +1,7 @@
 //
 //  Slot0.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/5/8.
 //
 
 import Foundation
@@ -10,6 +9,8 @@ import Foundation
 import BigInt
 
 struct Slot0 {
+    // MARK: Properties
+
     /// the current price
     let sqrtPriceX96: BigUInt
     /// the current tick
@@ -25,6 +26,8 @@ struct Slot0 {
     let feeProtocol: BigUInt
     /// whether the pool is locked
     let unlocked: Bool
+
+    // MARK: Lifecycle
 
     init?(data: Data) {
         guard data.count == 224 else {

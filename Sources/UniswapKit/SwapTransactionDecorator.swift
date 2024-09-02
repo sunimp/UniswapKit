@@ -1,15 +1,14 @@
 //
 //  SwapTransactionDecorator.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2021/3/4.
 //
 
 import Foundation
 
 import BigInt
-import Eip20Kit
-import EvmKit
+import EIP20Kit
+import EVMKit
 
 // MARK: - SwapTransactionDecorator
 
@@ -19,15 +18,15 @@ class SwapTransactionDecorator {
         tokenAddress: Address,
         eventInstances: [ContractEventInstance],
         collectIncomingAmounts: Bool
-    ) -> BigUInt {
+    )
+        -> BigUInt {
         var amountIn: BigUInt = 0
         var amountOut: BigUInt = 0
 
         for eventInstance in eventInstances {
             if
                 eventInstance.contractAddress == tokenAddress,
-                let transferEventInstance = eventInstance as? TransferEventInstance
-            {
+                let transferEventInstance = eventInstance as? TransferEventInstance {
                 if transferEventInstance.from == userAddress {
                     amountIn += transferEventInstance.value
                 }
@@ -56,7 +55,8 @@ class SwapTransactionDecorator {
     private func eip20Token(address: Address, eventInstances: [ContractEventInstance]) -> SwapDecoration.Token {
         .eip20Coin(
             address: address,
-            tokenInfo: eventInstances.compactMap { $0 as? TransferEventInstance }.first { $0.contractAddress == address }?
+            tokenInfo: eventInstances.compactMap { $0 as? TransferEventInstance }
+                .first { $0.contractAddress == address }?
                 .tokenInfo
         )
     }
@@ -72,7 +72,8 @@ extension SwapTransactionDecorator: ITransactionDecorator {
         contractMethod: ContractMethod?,
         internalTransactions: [InternalTransaction],
         eventInstances: [ContractEventInstance]
-    ) -> TransactionDecoration? {
+    )
+        -> TransactionDecoration? {
         guard let from, let to, let value, let contractMethod else {
             return nil
         }

@@ -1,22 +1,35 @@
 //
 //  SwapETHForExactTokensMethod.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/9/22.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class SwapETHForExactTokensMethod: ContractMethod {
+    // MARK: Static Properties
+
     static let methodSignature = "swapETHForExactTokens(uint256,address[],address,uint256)"
+
+    // MARK: Overridden Properties
+
+    override var methodSignature: String { SwapETHForExactTokensMethod.methodSignature }
+
+    override var arguments: [Any] {
+        [amountOut, path, to, deadline]
+    }
+
+    // MARK: Properties
 
     let amountOut: BigUInt
     let path: [Address]
     let to: Address
     let deadline: BigUInt
+
+    // MARK: Lifecycle
 
     init(amountOut: BigUInt, path: [Address], to: Address, deadline: BigUInt) {
         self.amountOut = amountOut
@@ -25,11 +38,5 @@ class SwapETHForExactTokensMethod: ContractMethod {
         self.deadline = deadline
 
         super.init()
-    }
-
-    override var methodSignature: String { SwapETHForExactTokensMethod.methodSignature }
-
-    override var arguments: [Any] {
-        [amountOut, path, to, deadline]
     }
 }

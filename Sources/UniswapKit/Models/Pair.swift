@@ -1,27 +1,25 @@
 //
 //  Pair.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/9.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 import WWCryptoKit
 import WWExtensions
 
 // MARK: - Pair
 
 public struct Pair {
+    // MARK: Properties
+
     let reserve0: TokenAmount
     let reserve1: TokenAmount
 
-    init(reserve0: TokenAmount, reserve1: TokenAmount) {
-        self.reserve0 = reserve0
-        self.reserve1 = reserve1
-    }
+    // MARK: Computed Properties
 
     var token0: Token {
         reserve0.token
@@ -31,16 +29,21 @@ public struct Pair {
         reserve1.token
     }
 
+    // MARK: Lifecycle
+
+    init(reserve0: TokenAmount, reserve1: TokenAmount) {
+        self.reserve0 = reserve0
+        self.reserve1 = reserve1
+    }
+
+    // MARK: Functions
+
     func involves(token: Token) -> Bool {
         token0 == token || token1 == token
     }
 
     func other(token: Token) -> Token {
         token0 == token ? token1 : token0
-    }
-
-    private func reserve(token: Token) -> TokenAmount {
-        token0 == token ? reserve0 : reserve1
     }
 
     func tokenAmountOut(tokenAmountIn: TokenAmount) throws -> TokenAmount {
@@ -93,10 +96,20 @@ public struct Pair {
 
         return TokenAmount(token: tokenIn, rawAmount: amountIn)
     }
+
+    private func reserve(token: Token) -> TokenAmount {
+        token0 == token ? reserve0 : reserve1
+    }
 }
 
 extension Pair {
-    static func address(token0: Token, token1: Token, factoryAddressString: String, initCodeHashString: String) -> Address {
+    static func address(
+        token0: Token,
+        token1: Token,
+        factoryAddressString: String,
+        initCodeHashString: String
+    )
+        -> Address {
         let data = "ff".ww.hexData! +
             factoryAddressString.ww.hexData! +
             Crypto.sha3(token0.address.raw + token1.address.raw) +

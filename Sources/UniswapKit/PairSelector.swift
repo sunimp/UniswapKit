@@ -1,20 +1,25 @@
 //
 //  PairSelector.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/11.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 class PairSelector {
+    // MARK: Properties
+
     private let tokenFactory: TokenFactory
+
+    // MARK: Lifecycle
 
     init(tokenFactory: TokenFactory) {
         self.tokenFactory = tokenFactory
     }
+
+    // MARK: Functions
 
     func tokenPairs(chain: Chain, tokenA: Token, tokenB: Token) throws -> [(Token, Token)] {
         if tokenA.isEther || tokenB.isEther {

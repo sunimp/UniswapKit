@@ -1,8 +1,7 @@
 //
 //  TradeV3.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/5/3.
 //
 
 import Foundation
@@ -12,6 +11,8 @@ import BigInt
 // MARK: - TradeV3
 
 public class TradeV3 {
+    // MARK: Properties
+
     public let type: TradeType
 
     let swapPath: SwapPath
@@ -19,6 +20,8 @@ public class TradeV3 {
     let slotPrices: [Decimal]
     let tokenAmountIn: TokenAmount
     let tokenAmountOut: TokenAmount
+
+    // MARK: Lifecycle
 
     public init(
         tradeType: TradeType,
@@ -43,7 +46,11 @@ public class TradeV3 {
 extension TradeV3 {
     public var priceImpact: Decimal? {
         let decimals = tokenAmountIn.token.decimals - tokenAmountOut.token.decimals
-        let tradePrice = PriceImpactHelper.price(in: tokenAmountIn.rawAmount, out: tokenAmountOut.rawAmount, shift: decimals)
+        let tradePrice = PriceImpactHelper.price(
+            in: tokenAmountIn.rawAmount,
+            out: tokenAmountOut.rawAmount,
+            shift: decimals
+        )
 
         var slotPrice: Decimal?
         if !slotPrices.isEmpty {

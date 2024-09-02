@@ -1,8 +1,7 @@
 //
 //  SwapData.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/9.
 //
 
 import Foundation

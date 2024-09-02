@@ -1,16 +1,19 @@
 //
 //  SwapV3ContractMethodFactories.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/5/3.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 class SwapV3ContractMethodFactories: ContractMethodFactories {
+    // MARK: Static Properties
+
     static let shared = SwapV3ContractMethodFactories()
+
+    // MARK: Lifecycle
 
     override init() {
         super.init()

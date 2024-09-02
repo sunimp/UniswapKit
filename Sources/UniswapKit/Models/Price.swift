@@ -1,8 +1,7 @@
 //
 //  Price.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2020/7/15.
 //
 
 import Foundation
@@ -12,10 +11,29 @@ import BigInt
 // MARK: - Price
 
 struct Price {
+    // MARK: Properties
+
+    let fraction: Fraction
+
     private let baseToken: Token
     private let quoteToken: Token
-    let fraction: Fraction
     private let scalar: Fraction
+
+    // MARK: Computed Properties
+
+    var adjusted: Fraction {
+        fraction * scalar
+    }
+
+    var decimalValue: Decimal? {
+        adjusted.toDecimal(decimals: quoteToken.decimals)
+    }
+
+    var invertedPrice: Price {
+        Price(baseToken: quoteToken, quoteToken: baseToken, fraction: fraction.inverted)
+    }
+
+    // MARK: Lifecycle
 
     init(baseToken: Token, quoteToken: Token, fraction: Fraction) {
         self.baseToken = baseToken
@@ -34,18 +52,6 @@ struct Price {
             quoteToken: quoteTokenAmount.token,
             fraction: Fraction(numerator: quoteTokenAmount.rawAmount, denominator: baseTokenAmount.rawAmount)
         )
-    }
-
-    var adjusted: Fraction {
-        fraction * scalar
-    }
-
-    var decimalValue: Decimal? {
-        adjusted.toDecimal(decimals: quoteToken.decimals)
-    }
-
-    var invertedPrice: Price {
-        Price(baseToken: quoteToken, quoteToken: baseToken, fraction: fraction.inverted)
     }
 }
 

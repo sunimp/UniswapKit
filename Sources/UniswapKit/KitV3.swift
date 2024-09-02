@@ -1,23 +1,26 @@
 //
 //  KitV3.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 import WWToolKit
 
 // MARK: - KitV3
 
 public class KitV3 {
+    // MARK: Properties
+
     private let dexType: DexType
     private let quoter: QuoterV2
     private let swapRouter: SwapRouter
     private let tokenFactory: TokenFactory
+
+    // MARK: Lifecycle
 
     init(dexType: DexType, quoter: QuoterV2, swapRouter: SwapRouter, tokenFactory: TokenFactory) {
         self.dexType = dexType
@@ -47,7 +50,8 @@ extension KitV3 {
         tokenOut: Token,
         amountIn: Decimal,
         options: TradeOptions
-    ) async throws -> TradeDataV3 {
+    ) async throws
+        -> TradeDataV3 {
         guard let amountIn = BigUInt(amountIn.ww.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
             throw TradeError.zeroAmount
         }
@@ -69,7 +73,8 @@ extension KitV3 {
         tokenOut: Token,
         amountOut: Decimal,
         options: TradeOptions
-    ) async throws -> TradeDataV3 {
+    ) async throws
+        -> TradeDataV3 {
         guard let amountOut = BigUInt(amountOut.ww.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
             throw TradeError.zeroAmount
         }
@@ -89,26 +94,30 @@ extension KitV3 {
         chain: Chain,
         bestTrade: TradeDataV3,
         tradeOptions: TradeOptions
-    ) throws -> TransactionData {
-        swapRouter.transactionData(receiveAddress: receiveAddress, chain: chain, tradeData: bestTrade, tradeOptions: tradeOptions)
+    ) throws
+        -> TransactionData {
+        swapRouter.transactionData(
+            receiveAddress: receiveAddress,
+            chain: chain,
+            tradeData: bestTrade,
+            tradeOptions: tradeOptions
+        )
     }
 }
 
 extension KitV3 {
-    
     public static func instance(dexType: DexType) throws -> KitV3 {
         let networkManager = NetworkManager()
         let tokenFactory = TokenFactory()
         let quoter = QuoterV2(networkManager: networkManager, tokenFactory: tokenFactory, dexType: dexType)
         let swapRouter = SwapRouter(dexType: dexType)
-        let uniswapKit = KitV3(dexType: dexType, quoter: quoter, swapRouter: swapRouter, tokenFactory: tokenFactory)
-
-        return uniswapKit
+        return KitV3(dexType: dexType, quoter: quoter, swapRouter: swapRouter, tokenFactory: tokenFactory)
     }
 
-    public static func addDecorators(to evmKit: EvmKit.Kit) throws {
+    public static func addDecorators(to evmKit: EVMKit.Kit) throws {
         let tokenFactory = TokenFactory()
-        evmKit.add(methodDecorator: SwapV3MethodDecorator(contractMethodFactories: SwapV3ContractMethodFactories.shared))
+        evmKit
+            .add(methodDecorator: SwapV3MethodDecorator(contractMethodFactories: SwapV3ContractMethodFactories.shared))
         try evmKit
             .add(transactionDecorator: SwapV3TransactionDecorator(
                 wethAddress: tokenFactory.etherToken(chain: evmKit.chain)
@@ -118,20 +127,26 @@ extension KitV3 {
 
     public static func isSupported(chain: Chain) -> Bool {
         switch chain {
-        case .ethereumGoerli, .ethereum, .polygon, .optimism, .arbitrumOne, .binanceSmartChain: true
+        case .ethereumGoerli,
+             .ethereum,
+             .polygon,
+             .optimism,
+             .arbitrumOne,
+             .binanceSmartChain: true
         default: false
         }
     }
 }
 
 extension KitV3 {
-    
     public enum FeeAmount: BigUInt, CaseIterable {
         case lowest = 100
         case low = 500
         case mediumPancakeSwap = 2500
         case mediumUniswap = 3000
         case high = 10000
+
+        // MARK: Static Functions
 
         public static func sorted(dexType: DexType) -> [FeeAmount] {
             [

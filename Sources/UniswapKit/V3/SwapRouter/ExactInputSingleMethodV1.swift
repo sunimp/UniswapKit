@@ -1,17 +1,28 @@
 //
 //  ExactInputSingleMethodV1.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/4/25.
 //
 
 import Foundation
 
 import BigInt
-import EvmKit
+import EVMKit
 
 class ExactInputSingleMethodV1: ContractMethod {
+    // MARK: Static Properties
+
     static let methodSignature = "exactInputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160))"
+
+    // MARK: Overridden Properties
+
+    override var methodSignature: String { ExactInputSingleMethodV1.methodSignature }
+
+    override var arguments: [Any] {
+        [tokenIn, tokenOut, fee, recipient, deadline, amountIn, amountOutMinimum, sqrtPriceLimitX96]
+    }
+
+    // MARK: Properties
 
     let tokenIn: Address
     let tokenOut: Address
@@ -21,6 +32,8 @@ class ExactInputSingleMethodV1: ContractMethod {
     let amountIn: BigUInt
     let amountOutMinimum: BigUInt
     let sqrtPriceLimitX96: BigUInt
+
+    // MARK: Lifecycle
 
     init(
         tokenIn: Address,
@@ -42,11 +55,5 @@ class ExactInputSingleMethodV1: ContractMethod {
         self.sqrtPriceLimitX96 = sqrtPriceLimitX96
 
         super.init()
-    }
-
-    override var methodSignature: String { ExactInputSingleMethodV1.methodSignature }
-
-    override var arguments: [Any] {
-        [tokenIn, tokenOut, fee, recipient, deadline, amountIn, amountOutMinimum, sqrtPriceLimitX96]
     }
 }

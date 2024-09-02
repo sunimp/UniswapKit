@@ -1,17 +1,18 @@
 //
 //  DexType.swift
-//  UniswapKit
 //
-//  Created by Sun on 2024/8/21.
+//  Created by Sun on 2023/7/5.
 //
 
 import Foundation
 
-import EvmKit
+import EVMKit
 
 public enum DexType {
     case uniswap
     case pancakeSwap
+
+    // MARK: Computed Properties
 
     var mediumFeeAmount: KitV3.FeeAmount {
         switch self {
@@ -19,6 +20,8 @@ public enum DexType {
         case .pancakeSwap: .mediumPancakeSwap
         }
     }
+
+    // MARK: Functions
 
     func factoryAddress(chain: Chain) -> Address {
         switch self {

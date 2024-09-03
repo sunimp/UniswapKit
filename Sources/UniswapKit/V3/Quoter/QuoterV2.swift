@@ -18,13 +18,13 @@ public class QuoterV2 {
 
     private let networkManager: NetworkManager
     private let tokenFactory: TokenFactory
-    private let dexType: DexType
+    private let dexType: DEXType
 
     private let fees: [KitV3.FeeAmount]
 
     // MARK: Lifecycle
 
-    init(networkManager: NetworkManager, tokenFactory: TokenFactory, dexType: DexType) {
+    init(networkManager: NetworkManager, tokenFactory: TokenFactory, dexType: DEXType) {
         self.networkManager = networkManager
         self.tokenFactory = tokenFactory
         self.dexType = dexType

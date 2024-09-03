@@ -14,11 +14,11 @@ import EVMKit
 class SwapRouter {
     // MARK: Properties
 
-    private let dexType: DexType
+    private let dexType: DEXType
 
     // MARK: Lifecycle
 
-    init(dexType: DexType) {
+    init(dexType: DEXType) {
         self.dexType = dexType
     }
 

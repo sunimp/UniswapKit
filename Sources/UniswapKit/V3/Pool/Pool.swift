@@ -31,7 +31,7 @@ class Pool {
         token0: Address,
         token1: Address,
         fee: KitV3.FeeAmount,
-        dexType: DexType
+        dexType: DEXType
     ) async throws {
         self.networkManager = networkManager
         self.rpcSource = rpcSource

@@ -15,14 +15,14 @@ import WWToolKit
 public class KitV3 {
     // MARK: Properties
 
-    private let dexType: DexType
+    private let dexType: DEXType
     private let quoter: QuoterV2
     private let swapRouter: SwapRouter
     private let tokenFactory: TokenFactory
 
     // MARK: Lifecycle
 
-    init(dexType: DexType, quoter: QuoterV2, swapRouter: SwapRouter, tokenFactory: TokenFactory) {
+    init(dexType: DEXType, quoter: QuoterV2, swapRouter: SwapRouter, tokenFactory: TokenFactory) {
         self.dexType = dexType
         self.quoter = quoter
         self.swapRouter = swapRouter
@@ -106,7 +106,7 @@ extension KitV3 {
 }
 
 extension KitV3 {
-    public static func instance(dexType: DexType) throws -> KitV3 {
+    public static func instance(dexType: DEXType) throws -> KitV3 {
         let networkManager = NetworkManager()
         let tokenFactory = TokenFactory()
         let quoter = QuoterV2(networkManager: networkManager, tokenFactory: tokenFactory, dexType: dexType)
@@ -148,7 +148,7 @@ extension KitV3 {
 
         // MARK: Static Functions
 
-        public static func sorted(dexType: DexType) -> [FeeAmount] {
+        public static func sorted(dexType: DEXType) -> [FeeAmount] {
             [
                 .lowest,
                 .low,

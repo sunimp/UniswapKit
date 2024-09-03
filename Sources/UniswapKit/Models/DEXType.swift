@@ -1,5 +1,5 @@
 //
-//  DexType.swift
+//  DEXType.swift
 //
 //  Created by Sun on 2023/7/5.
 //
@@ -8,7 +8,7 @@ import Foundation
 
 import EVMKit
 
-public enum DexType {
+public enum DEXType {
     case uniswap
     case pancakeSwap
 

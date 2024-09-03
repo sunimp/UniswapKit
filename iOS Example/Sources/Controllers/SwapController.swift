@@ -330,7 +330,7 @@ class SwapController: UIViewController {
         }
 
         guard let eip20Kit = try? EIP20Kit.Kit.instance(evmKit: Manager.shared.evmKit, contractAddress: token(fromToken).address) else {
-            show(error: "Can't create Eip20 Kit for token!")
+            show(error: "Can't create EIP20 Kit for token!")
             return
         }
         let transactionData = eip20Kit.approveTransactionData(spenderAddress: uniswapKit.routerAddress(chain: .binanceSmartChain), amount: amountIn)

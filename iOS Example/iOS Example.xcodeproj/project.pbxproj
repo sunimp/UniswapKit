@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,8 @@
 		6B0946E129F7EDF50007F19D /* TokenSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0946E029F7EDF50007F19D /* TokenSelectController.swift */; };
 		6B2B801429E5451300D3A0E3 /* SwapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2B801329E5451300D3A0E3 /* SwapController.swift */; };
 		A47FAFD32C6DADDD00230DDD /* UIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = A47FAFD22C6DADDD00230DDD /* UIExtensions */; };
+		A4898AE72CC77B9C005222FB /* UniswapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4898AE62CC77B9C005222FB /* UniswapKit */; };
+		A4898AE92CC77BB8005222FB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4898AE82CC77BB8005222FB /* Launch Screen.storyboard */; };
 		D3500A2328EC54AC0093A369 /* UniswapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D3500A2228EC54AC0093A369 /* UniswapKit */; };
 		D36AAAC923A237940065B32B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAAF23A237940065B32B /* Configuration.swift */; };
 		D36AAACA23A237940065B32B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36AAAB023A237940065B32B /* Assets.xcassets */; };
@@ -24,16 +26,15 @@
 		D36AAAD923A237940065B32B /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAC323A237940065B32B /* MainController.swift */; };
 		D36AAADB23A237940065B32B /* TransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAC523A237940065B32B /* TransactionsController.swift */; };
 		D36AAADC23A237940065B32B /* SendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36AAAC623A237940065B32B /* SendController.swift */; };
-		D36AAADE23A237940065B32B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36AAAC823A237940065B32B /* LaunchScreen.xib */; };
-		D36DFC2928EBDF5B00D2FC62 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D36DFC2828EBDF5B00D2FC62 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		607FACD01AFB9204008FA782 /* UniswapKit Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniswapKit Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD01AFB9204008FA782 /* UniswapKit-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniswapKit-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B0946E029F7EDF50007F19D /* TokenSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSelectController.swift; sourceTree = "<group>"; };
 		6B2B801329E5451300D3A0E3 /* SwapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapController.swift; sourceTree = "<group>"; };
+		A4898AE82CC77BB8005222FB /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D36AAAAF23A237940065B32B /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D36AAAB023A237940065B32B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D36AAAB223A237940065B32B /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		D36AAAC323A237940065B32B /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		D36AAAC523A237940065B32B /* TransactionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsController.swift; sourceTree = "<group>"; };
 		D36AAAC623A237940065B32B /* SendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendController.swift; sourceTree = "<group>"; };
-		D36AAAC823A237940065B32B /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4898AE72CC77B9C005222FB /* UniswapKit in Frameworks */,
 				A47FAFD32C6DADDD00230DDD /* UIExtensions in Frameworks */,
 				D3500A2328EC54AC0093A369 /* UniswapKit in Frameworks */,
-				D36DFC2928EBDF5B00D2FC62 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +75,7 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* UniswapKit Demo.app */,
+				607FACD01AFB9204008FA782 /* UniswapKit-Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,7 +89,7 @@
 				D36AAAB023A237940065B32B /* Assets.xcassets */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				D36AAAAF23A237940065B32B /* Configuration.swift */,
-				D36AAAC823A237940065B32B /* LaunchScreen.xib */,
+				A4898AE82CC77BB8005222FB /* Launch Screen.storyboard */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Sources;
@@ -168,12 +168,12 @@
 			);
 			name = "iOS Example";
 			packageProductDependencies = (
-				D36DFC2828EBDF5B00D2FC62 /* SnapKit */,
 				D3500A2228EC54AC0093A369 /* UniswapKit */,
 				A47FAFD22C6DADDD00230DDD /* UIExtensions */,
+				A4898AE62CC77B9C005222FB /* UniswapKit */,
 			);
 			productName = EthereumKit;
-			productReference = 607FACD01AFB9204008FA782 /* UniswapKit Demo.app */;
+			productReference = 607FACD01AFB9204008FA782 /* UniswapKit-Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -184,8 +184,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1540;
-				ORGANIZATIONNAME = CocoaPods;
+				LastUpgradeCheck = 1600;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -194,7 +194,7 @@
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "iOS Example" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -203,8 +203,8 @@
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
-				D36DFC2728EBDF5B00D2FC62 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */,
+				A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions" */,
+				A4898AE52CC77B9C005222FB /* XCLocalSwiftPackageReference "../../UniswapKit" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -220,8 +220,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4898AE92CC77BB8005222FB /* Launch Screen.storyboard in Resources */,
 				D36AAACA23A237940065B32B /* Assets.xcassets in Resources */,
-				D36AAADE23A237940065B32B /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +375,7 @@
 				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunimp.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "UniswapKit Demo";
+				PRODUCT_NAME = "UniswapKit-Example";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -398,7 +398,7 @@
 				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunimp.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "UniswapKit Demo";
+				PRODUCT_NAME = "UniswapKit-Example";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -431,21 +431,20 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sunimp/UIExtensions.Swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		A4898AE52CC77B9C005222FB /* XCLocalSwiftPackageReference "../../UniswapKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../UniswapKit;
 		};
-		D36DFC2728EBDF5B00D2FC62 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			repositoryURL = "https://github.com/sunimp/UIExtensions.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -453,17 +452,16 @@
 /* Begin XCSwiftPackageProductDependency section */
 		A47FAFD22C6DADDD00230DDD /* UIExtensions */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions.Swift" */;
+			package = A47FAFD12C6DADDD00230DDD /* XCRemoteSwiftPackageReference "UIExtensions" */;
 			productName = UIExtensions;
+		};
+		A4898AE62CC77B9C005222FB /* UniswapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UniswapKit;
 		};
 		D3500A2228EC54AC0093A369 /* UniswapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UniswapKit;
-		};
-		D36DFC2828EBDF5B00D2FC62 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D36DFC2728EBDF5B00D2FC62 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

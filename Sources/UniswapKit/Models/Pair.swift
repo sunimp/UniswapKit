@@ -1,5 +1,6 @@
 //
 //  Pair.swift
+//  UniswapKit
 //
 //  Created by Sun on 2020/7/9.
 //
@@ -8,8 +9,8 @@ import Foundation
 
 import BigInt
 import EVMKit
-import WWCryptoKit
-import WWExtensions
+import SWCryptoKit
+import SWExtensions
 
 // MARK: - Pair
 
@@ -110,10 +111,10 @@ extension Pair {
         initCodeHashString: String
     )
         -> Address {
-        let data = "ff".ww.hexData! +
-            factoryAddressString.ww.hexData! +
+        let data = "ff".sw.hexData! +
+            factoryAddressString.sw.hexData! +
             Crypto.sha3(token0.address.raw + token1.address.raw) +
-            initCodeHashString.ww.hexData!
+            initCodeHashString.sw.hexData!
 
         return Address(raw: Crypto.sha3(data).suffix(20))
     }

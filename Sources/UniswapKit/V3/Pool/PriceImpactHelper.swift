@@ -1,5 +1,6 @@
 //
 //  PriceImpactHelper.swift
+//  UniswapKit
 //
 //  Created by Sun on 2023/5/8.
 //
@@ -7,7 +8,7 @@
 import Foundation
 
 import BigInt
-import WWExtensions
+import SWExtensions
 
 enum PriceImpactHelper {
     static func price(from sqrtPriceX96: BigUInt, shift: Int) -> Decimal? {
@@ -30,7 +31,7 @@ enum PriceImpactHelper {
         guard price != 0 else { // if ideal price extremely small, it means that price impact ~100%
             return 99.9
         }
-        return ((1 - real / price) * 100).ww.rounded(decimal: 2) / 100
+        return ((1 - real / price) * 100).sw.rounded(decimal: 2) / 100
     }
 
     static func price(in: BigUInt, out: BigUInt, shift: Int) -> Decimal? {

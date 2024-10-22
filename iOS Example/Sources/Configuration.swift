@@ -8,7 +8,7 @@
 import UIKit
 
 import EVMKit
-import WWToolKit
+import SWToolKit
 import UniswapKit
 
 class Configuration {

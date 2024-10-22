@@ -1,5 +1,6 @@
 //
 //  KitV3.swift
+//  UniswapKit
 //
 //  Created by Sun on 2023/4/25.
 //
@@ -8,7 +9,7 @@ import Foundation
 
 import BigInt
 import EVMKit
-import WWToolKit
+import SWToolKit
 
 // MARK: - KitV3
 
@@ -52,7 +53,7 @@ extension KitV3 {
         options: TradeOptions
     ) async throws
         -> TradeDataV3 {
-        guard let amountIn = BigUInt(amountIn.ww.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
+        guard let amountIn = BigUInt(amountIn.sw.roundedString(decimal: tokenIn.decimals)), !amountIn.isZero else {
             throw TradeError.zeroAmount
         }
 
@@ -75,7 +76,7 @@ extension KitV3 {
         options: TradeOptions
     ) async throws
         -> TradeDataV3 {
-        guard let amountOut = BigUInt(amountOut.ww.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
+        guard let amountOut = BigUInt(amountOut.sw.roundedString(decimal: tokenOut.decimals)), !amountOut.isZero else {
             throw TradeError.zeroAmount
         }
 

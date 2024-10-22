@@ -1,5 +1,6 @@
 //
 //  TradeManager.swift
+//  UniswapKit
 //
 //  Created by Sun on 2020/6/24.
 //
@@ -8,8 +9,8 @@ import Foundation
 
 import BigInt
 import EVMKit
-import WWCryptoKit
-import WWToolKit
+import SWCryptoKit
+import SWToolKit
 
 // MARK: - TradeManager
 

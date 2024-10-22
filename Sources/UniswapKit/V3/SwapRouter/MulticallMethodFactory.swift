@@ -1,5 +1,6 @@
 //
 //  MulticallMethodFactory.swift
+//  UniswapKit
 //
 //  Created by Sun on 2023/5/17.
 //
@@ -30,7 +31,7 @@ class MulticallMethodFactory: IContractMethodFactory {
         }
 
         let methods: [ContractMethod] = methodArray.compactMap { argument -> ContractMethod? in
-            guard let data = argument.ww.hex.ww.hexData else {
+            guard let data = argument.sw.hex.sw.hexData else {
                 return nil
             }
             return factories.createMethod(input: data)

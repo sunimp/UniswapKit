@@ -1,5 +1,6 @@
 //
 //  QuoteExactSingleResponse.swift
+//  UniswapKit
 //
 //  Created by Sun on 2023/5/8.
 //

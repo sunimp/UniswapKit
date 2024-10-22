@@ -1,5 +1,6 @@
 //
 //  Kit.swift
+//  UniswapKit
 //
 //  Created by Sun on 2020/6/24.
 //
@@ -8,7 +9,7 @@ import Foundation
 
 import BigInt
 import EVMKit
-import WWToolKit
+import SWToolKit
 
 // MARK: - Kit
 

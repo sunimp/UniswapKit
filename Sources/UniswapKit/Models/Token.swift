@@ -1,5 +1,6 @@
 //
 //  Token.swift
+//  UniswapKit
 //
 //  Created by Sun on 2020/7/9.
 //
@@ -40,7 +41,7 @@ public enum Token {
     // MARK: Functions
 
     func sortsBefore(token: Token) -> Bool {
-        address.raw.ww.hexString.lowercased() < token.address.raw.ww.hexString.lowercased()
+        address.raw.sw.hexString.lowercased() < token.address.raw.sw.hexString.lowercased()
     }
 }
 

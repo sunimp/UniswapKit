@@ -260,7 +260,7 @@ class SwapController: UIViewController {
                 switch self.tradeType {
                 case .exactIn:
                     guard let amountString = fromTextField.text, let amount = Decimal(string: amountString),
-                          let amountBigUInt = BigUInt(amount.ww.roundedString(decimal: fromToken.decimals))
+                          let amountBigUInt = BigUInt(amount.sw.roundedString(decimal: fromToken.decimals))
                     else {
                         self.show(error: "Invalid amount from")
                         return
@@ -277,7 +277,7 @@ class SwapController: UIViewController {
                     )
                 case .exactOut:
                     guard let amountString = toTextField.text, let amount = Decimal(string: amountString),
-                          let amountBigUInt = BigUInt(amount.ww.roundedString(decimal: toToken.decimals))
+                          let amountBigUInt = BigUInt(amount.sw.roundedString(decimal: toToken.decimals))
                     else {
                         show(error: "Invalid amount to")
                         return
@@ -323,7 +323,7 @@ class SwapController: UIViewController {
 
     @objc private func approve() {
         guard let amountString = fromTextField.text, let amount = Decimal(string: amountString),
-              let amountIn = BigUInt(amount.ww.roundedString(decimal: fromToken.decimals))
+              let amountIn = BigUInt(amount.sw.roundedString(decimal: fromToken.decimals))
         else {
             show(error: "Invalid amount from")
             return
@@ -379,7 +379,7 @@ class SwapController: UIViewController {
                 tradeOptions: tradeOptions
             )
 
-            print("tx input: ", transactionData.input.ww.hexString)
+            print("tx input: ", transactionData.input.sw.hexString)
             let gasPrice = gasPrice
             Task {
                 do {
